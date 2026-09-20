@@ -73,7 +73,10 @@ test.describe("search", () => {
 test.describe("category rail", () => {
   test("leads from the home page into a filtered search", async ({ page }) => {
     await page.goto("en/");
-    await page.locator('a[href*="/search/?category=grocery"]').first().click();
+    await page
+      .locator('a[href*="/search/?category=grocery"]:visible')
+      .first()
+      .click();
     await expect(page).toHaveURL(/category=grocery/);
     await expect(page.locator("article")).toHaveCount(1);
   });

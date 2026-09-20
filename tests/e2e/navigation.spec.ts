@@ -22,9 +22,7 @@ test.describe("home page", () => {
 
   test("offers a route into the consultancy section", async ({ page }) => {
     await page.goto("bn/");
-    const link = page
-      .locator('a[href$="/bn/consultancy/"]')
-      .first();
+    const link = page.locator('a[href$="/bn/consultancy/"]:visible').first();
     await expect(link).toBeVisible();
     await link.click();
     await expect(page).toHaveURL(/\/bn\/consultancy\/$/);
@@ -43,7 +41,7 @@ test.describe("root entry point", () => {
 test.describe("language switching", () => {
   test("moves between locales and keeps the page", async ({ page }) => {
     await page.goto("bn/consultancy/");
-    await page.locator('a[hreflang="en"]').first().click();
+    await page.locator('a[hreflang="en"]:visible').first().click();
     await expect(page).toHaveURL(/\/en\/consultancy\/$/);
     await expect(page.locator("h1")).toContainText("Business");
   });
@@ -59,7 +57,7 @@ test.describe("shop pages", () => {
 
   test("links back to the shop list", async ({ page }) => {
     await page.goto("en/shop/3/");
-    await page.locator('a[href$="/en/search/"]').first().click();
+    await page.locator('a[href$="/en/search/"]:visible').first().click();
     await expect(page).toHaveURL(/\/en\/search\/$/);
   });
 });

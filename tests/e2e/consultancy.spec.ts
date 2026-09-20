@@ -42,7 +42,10 @@ test.describe("consultancy landing", () => {
   test("links through to every service page", async ({ page }) => {
     for (const id of SERVICES) {
       await page.goto("en/consultancy/");
-      await page.locator(`a[href$="/en/consultancy/${id}/"]`).first().click();
+      await page
+        .locator(`a[href$="/en/consultancy/${id}/"]:visible`)
+        .first()
+        .click();
       await expect(page).toHaveURL(new RegExp(`/en/consultancy/${id}/$`));
       await expect(page.locator("h1")).toBeVisible();
     }
@@ -59,7 +62,7 @@ test.describe("consultancy request form", () => {
   test("refuses to send without a name and phone", async ({ page }) => {
     await page.goto("en/consultancy/");
     await page.getByRole("button", { name: "Send on WhatsApp" }).click();
-    await expect(page.getByRole("alert")).toContainText(
+    await expect(page.locator('form [role="alert"]')).toContainText(
       "Please add your name and phone number first.",
     );
   });

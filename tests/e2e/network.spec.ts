@@ -63,9 +63,9 @@ test("client navigation between pages loads no missing payloads", async ({
   });
 
   await page.goto("en/");
-  await page.locator('a[href$="/en/offers/"]').first().click();
+  await page.locator('a[href$="/en/offers/"]:visible').first().click();
   await expect(page).toHaveURL(/\/en\/offers\/$/);
-  await page.locator('a[href$="/en/consultancy/"]').first().click();
+  await page.locator('a[href$="/en/consultancy/"]:visible').first().click();
   await expect(page).toHaveURL(/\/en\/consultancy\/$/);
 
   expect(failures).toEqual([]);
