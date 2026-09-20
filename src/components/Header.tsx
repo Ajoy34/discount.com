@@ -8,7 +8,6 @@ import {
   ChevronDown,
   LayoutGrid,
   LogIn,
-  MapPin,
   Menu,
   Search,
   Store,
@@ -17,7 +16,6 @@ import {
   X,
 } from "lucide-react";
 import LocaleSwitch from "@/components/LocaleSwitch";
-import RewardsChip from "@/components/RewardsChip";
 import type { CategoryId } from "@/lib/data";
 import type { Locale } from "@/lib/i18n";
 
@@ -32,10 +30,7 @@ export interface NavStrings {
   categories: string;
   browseCategories: string;
   forBusiness: string;
-  rewards: string;
-  pointsShort: string;
-  streak: string;
-  levelLabels: Record<string, string>;
+  allOffers: string;
   login: string;
   menu: string;
   closeMenu: string;
@@ -101,24 +96,9 @@ export default function Header({
           <span className="text-brand-600 dark:text-brand-400">.</span>
         </Link>
 
-        <span className="hidden items-center gap-1 rounded-full bg-[var(--surface-muted)] px-2.5 py-1 text-xs font-semibold muted lg:inline-flex">
-          <MapPin className="h-3.5 w-3.5" aria-hidden="true" />
-          Dhaka
-        </span>
 
         {/* Customer navigation */}
         <nav aria-label={t.home} className="hidden items-center gap-1 md:flex">
-          <Link
-            href={`/${locale}/offers/`}
-            className={`rounded-xl px-3 py-2 text-sm font-semibold transition-colors ${
-              isActive(`/${locale}/offers/`)
-                ? "bg-brand-50 text-brand-700 dark:bg-brand-950 dark:text-brand-300"
-                : "muted hover:bg-[var(--surface-muted)]"
-            }`}
-          >
-            <Tag className="me-1.5 inline h-4 w-4" aria-hidden="true" />
-            {t.offers}
-          </Link>
 
           {/* Categories is its own item: a chevron alone was too easy to miss */}
           <div className="relative" ref={catsRef}>
@@ -149,7 +129,14 @@ export default function Header({
                 id="offer-categories"
                 className="absolute start-0 top-full z-50 mt-2 w-64 rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-card)] p-2 shadow-xl"
               >
-                <p className="px-3 pb-1.5 pt-1 text-[11px] font-bold uppercase tracking-wider muted">
+                <Link
+                  href={`/${locale}/offers/`}
+                  className="mb-1 flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-bold hover:bg-[var(--surface-muted)]"
+                >
+                  <Tag className="h-4 w-4 muted" aria-hidden="true" />
+                  {t.allOffers}
+                </Link>
+                <p className="border-t border-[var(--border-subtle)] px-3 pb-1.5 pt-2 text-[11px] font-bold uppercase tracking-wider muted">
                   {t.categories}
                 </p>
                 <ul className="grid grid-cols-2 gap-0.5">
@@ -203,16 +190,6 @@ export default function Header({
               {t.consultancy}
             </Link>
 
-            <RewardsChip
-              locale={locale}
-              t={{
-                rewards: t.rewards,
-                pointsShort: t.pointsShort,
-                streak: t.streak,
-                levelLabels: t.levelLabels,
-              }}
-            />
-
             <LocaleSwitch
               locale={locale}
               className="rounded-xl border border-[var(--border-subtle)] px-2.5 py-2 text-xs font-bold transition-colors hover:bg-[var(--surface-muted)]"
@@ -248,7 +225,7 @@ export default function Header({
           <div className="mx-auto max-w-6xl px-4 py-3">
             <nav aria-label={t.home} className="space-y-1">
               {[
-                { href: `/${locale}/offers/`, label: t.offers, Icon: Tag },
+                { href: `/${locale}/offers/`, label: t.allOffers, Icon: Tag },
                 ...customerLinks,
               ].map(({ href, label, Icon }) => (
                 <Link
@@ -291,18 +268,6 @@ export default function Header({
               />
               {t.consultancy}
             </Link>
-
-            <div className="mt-3 border-t border-[var(--border-subtle)] pt-3">
-              <RewardsChip
-                locale={locale}
-                t={{
-                  rewards: t.rewards,
-                  pointsShort: t.pointsShort,
-                  streak: t.streak,
-                  levelLabels: t.levelLabels,
-                }}
-              />
-            </div>
 
             <div className="mt-3 flex items-center gap-2">
               <Link

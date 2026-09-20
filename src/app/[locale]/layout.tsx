@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import BottomNav from "@/components/BottomNav";
+import DailyVisit from "@/components/DailyVisit";
 import { categories } from "@/lib/data";
 import { getTranslator, isLocale, locales, type Locale } from "@/lib/i18n";
 
@@ -26,7 +27,6 @@ export default async function LocaleLayout({
   const footer = getTranslator(active, "Footer");
   const index = getTranslator(active, "Index");
   const cat = getTranslator(active, "Category");
-  const rw = getTranslator(active, "Rewards");
 
   const navStrings = {
     home: nav("home"),
@@ -39,17 +39,7 @@ export default async function LocaleLayout({
     categories: nav("categories"),
     browseCategories: nav("browseCategories"),
     forBusiness: nav("forBusiness"),
-    rewards: nav("rewards"),
-    rewardsShort: nav("rewardsShort"),
-    pointsShort: rw("pointsShort"),
-    streak: rw("streak"),
-    levelLabels: {
-      newcomer: rw("levelNewcomer"),
-      bronze: rw("levelBronze"),
-      silver: rw("levelSilver"),
-      gold: rw("levelGold"),
-      platinum: rw("levelPlatinum"),
-    },
+    allOffers: nav("allOffers"),
     login: nav("login"),
     menu: nav("menu"),
     closeMenu: nav("closeMenu"),
@@ -77,7 +67,9 @@ export default async function LocaleLayout({
     consultancy: nav("consultancy"),
     dashboard: nav("dashboard"),
     leaderboard: nav("leaderboard"),
+    leaderboardShort: nav("leaderboardShort"),
     rewards: nav("rewards"),
+    rewardsShort: nav("rewardsShort"),
   };
 
   const categoryOptions = categories.map((id) => ({ id, label: cat(id) }));
@@ -96,6 +88,7 @@ export default async function LocaleLayout({
       >
         {navStrings.skipToContent}
       </a>
+      <DailyVisit />
       <Header locale={active} t={navStrings} categories={categoryOptions} />
       <main id="main" className="flex-1 pb-20 md:pb-0">
         {children}

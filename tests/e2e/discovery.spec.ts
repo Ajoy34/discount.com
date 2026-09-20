@@ -153,7 +153,7 @@ test.describe("offer detail", () => {
 test.describe("leaderboard", () => {
   test("ranks by bid and says the placement is paid", async ({ page }) => {
     await page.goto("en/leaderboard/");
-    await expect(page.locator("h1")).toContainText("Shop leaderboard");
+    await expect(page.locator("h1")).toContainText("Number 1 Brand/Shop");
     await expect(page.getByText("Paid placement")).toBeVisible();
     // Highest bidder leads, even though it is not the highest rated shop.
     const first = page.locator("ol li").first();
@@ -311,5 +311,71 @@ test.describe("rewards", () => {
     await page.goto("en/rewards/");
     await expect(page.getByText("Top contributors")).toBeVisible();
     await expect(page.getByText("Sumaiya A.")).toBeVisible();
+  });
+});
+
+test.describe("header", () => {
+  test("carries neither a location chip nor an offers button", async ({
+    page,
+  }, testInfo) => {
+    test.skip(testInfo.project.name === "mobile", "desktop nav");
+
+    await page.goto("en/");
+    const header = page.locator("header");
+    await expect(header.getByText("Dhaka")).toHaveCount(0);
+    await expect(
+      header.getByRole("link", { name: "Offers", exact: true }),
+    ).toHaveCount(0);
+  });
+
+  test("names categories and the board as asked", async ({
+    page,
+  }, testInfo) => {
+    test.skip(testInfo.project.name === "mobile", "desktop nav");
+
+    await page.goto("en/");
+    const header = page.locator("header");
+    await expect(
+      header.getByRole("button", { name: "Discount categories" }),
+    ).toBeVisible();
+    await expect(
+      header.getByRole("link", { name: "Number 1 Brand/Shop" }),
+    ).toBeVisible();
+  });
+
+  test("shows no points chip", async ({ page }) => {
+    await page.goto("en/");
+    await expect(
+      page.locator('header a[href$="/en/rewards/"]'),
+    ).toHaveCount(0);
+  });
+
+  test("still reaches all offers from the categories menu", async ({
+    page,
+  }, testInfo) => {
+    test.skip(testInfo.project.name === "mobile", "desktop dropdown");
+
+    await page.goto("en/");
+    await page.getByRole("button", { name: "Browse offer categories" }).click();
+    await page
+      .locator("#offer-categories")
+      .getByRole("link", { name: "All offers" })
+      .click();
+    await expect(page).toHaveURL(/\/en\/offers\/$/);
+  });
+});
+
+test.describe("hero board", () => {
+  test("puts the paid-rank board beside the pitch", async ({ page }) => {
+    await page.goto("en/");
+    const aside = page.locator("aside").first();
+    await expect(aside).toContainText("Number 1 Brand/Shop");
+    await expect(aside).toContainText("Pay to rank first");
+    await expect(aside).toContainText("Lazz Pharma Mirpur");
+  });
+
+  test("no longer repeats the board further down", async ({ page }) => {
+    await page.goto("en/");
+    await expect(page.getByText("Top shops this week")).toHaveCount(0);
   });
 });

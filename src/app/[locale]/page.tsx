@@ -115,43 +115,69 @@ export default async function HomePage({
           className="pointer-events-none absolute -end-32 -top-32 h-96 w-96 rounded-full bg-brand-400/20 blur-3xl"
           aria-hidden="true"
         />
-        <div className="relative mx-auto max-w-6xl px-4 pb-10 pt-12 sm:pb-12 sm:pt-16">
-          <h1 className="max-w-3xl text-3xl font-black leading-[1.15] tracking-tight sm:text-5xl">
-            {t("heroTitle")}
-          </h1>
-          <p className="mt-3 max-w-xl text-sm leading-relaxed text-brand-50 sm:text-base">
-            {t("heroSubtitle")}
-          </p>
+        <div className="relative mx-auto grid max-w-6xl items-center gap-8 px-4 pb-10 pt-12 sm:pb-12 sm:pt-16 lg:grid-cols-[1.15fr_1fr] lg:gap-12">
+          <div>
+            <h1 className="max-w-3xl text-3xl font-black leading-[1.15] tracking-tight sm:text-5xl">
+              {t("heroTitle")}
+            </h1>
+            <p className="mt-3 max-w-xl text-sm leading-relaxed text-brand-50 sm:text-base">
+              {t("heroSubtitle")}
+            </p>
 
-          {/* Search is the primary action, so it gets the primary element. */}
-          <Link
-            href={`/${locale}/search/`}
-            className="mt-7 flex max-w-xl items-center gap-3 rounded-2xl bg-white p-2 ps-4 shadow-xl transition-transform hover:scale-[1.01]"
-          >
-            <Search
-              className="h-5 w-5 shrink-0 text-zinc-400"
-              aria-hidden="true"
-            />
-            <span className="flex-1 truncate py-2 text-sm text-zinc-500">
-              {t("searchPlaceholder")}
-            </span>
-            <span className="rounded-xl bg-brand-600 px-4 py-2.5 text-sm font-bold text-white">
-              {t("searchAction")}
-            </span>
-          </Link>
+            {/* Search is the primary action, so it gets the primary element. */}
+            <Link
+              href={`/${locale}/search/`}
+              className="mt-7 flex max-w-xl items-center gap-3 rounded-2xl bg-white p-2 ps-4 shadow-xl transition-transform hover:scale-[1.01]"
+            >
+              <Search
+                className="h-5 w-5 shrink-0 text-zinc-400"
+                aria-hidden="true"
+              />
+              <span className="flex-1 truncate py-2 text-sm text-zinc-500">
+                {t("searchPlaceholder")}
+              </span>
+              <span className="rounded-xl bg-brand-600 px-4 py-2.5 text-sm font-bold text-white">
+                {t("searchAction")}
+              </span>
+            </Link>
 
-          <dl className="mt-8 flex flex-wrap gap-x-8 gap-y-3">
-            {stats.map((s) => (
-              <div key={s.label} className="flex items-baseline gap-2">
-                <dd className="text-xl font-black">
-                  {formatNumber(s.value, locale)}
-                </dd>
-                <dt className="text-xs font-semibold text-brand-100">
-                  {s.label}
-                </dt>
+            <dl className="mt-8 flex flex-wrap gap-x-8 gap-y-3">
+              {stats.map((s) => (
+                <div key={s.label} className="flex items-baseline gap-2">
+                  <dd className="text-xl font-black">
+                    {formatNumber(s.value, locale)}
+                  </dd>
+                  <dt className="text-xs font-semibold text-brand-100">
+                    {s.label}
+                  </dt>
+                </div>
+              ))}
+            </dl>
+          </div>
+
+          {/* The paid-rank board sits beside the pitch: it is the thing shops
+              are being sold, so it belongs where they land. */}
+          <aside className="surface rounded-4xl p-5 text-[var(--text-strong)] shadow-2xl sm:p-6">
+            <div className="mb-4 flex items-start justify-between gap-3">
+              <div>
+                <h2 className="flex items-center gap-2 text-base font-black tracking-tight">
+                  <Trophy
+                    className="h-5 w-5 text-accent-600"
+                    aria-hidden="true"
+                  />
+                  {tl("navTitle")}
+                </h2>
+                <p className="mt-1 text-xs leading-relaxed muted">
+                  {tl("heroLead")}
+                </p>
               </div>
-            ))}
-          </dl>
+              <span className="shrink-0 rounded-full bg-accent-700 px-2.5 py-1 text-[11px] font-bold text-white">
+                {tl("payToRank")}
+              </span>
+            </div>
+
+            <LeaderboardBoard locale={locale} limit={4} showHow={false} compact />
+          </aside>
         </div>
       </section>
 
@@ -168,23 +194,9 @@ export default async function HomePage({
       </section>
 
       {/* ---------------------------------------------------------------- */}
-      {/* Leaderboard, high on the page and flattened to a ranked list      */}
-      {/* ---------------------------------------------------------------- */}
-      <section className="mx-auto max-w-6xl px-4 py-10">
-        <div className="mb-4">
-          <h2 className="flex items-center gap-2 text-xl font-black tracking-tight sm:text-2xl">
-            <Trophy className="h-5 w-5 text-accent-600" aria-hidden="true" />
-            {tl("topThisWeek")}
-          </h2>
-          <p className="mt-1 text-sm muted">{tl("topThisWeekSub")}</p>
-        </div>
-        <LeaderboardBoard locale={locale} limit={5} showHow={false} compact />
-      </section>
-
-      {/* ---------------------------------------------------------------- */}
       {/* Trending offers                                                   */}
       {/* ---------------------------------------------------------------- */}
-      <section className="mx-auto max-w-6xl px-4 pb-12">
+      <section className="mx-auto max-w-6xl px-4 py-12">
         <div className="mb-4 flex items-end justify-between gap-4">
           <div>
             <h2 className="flex items-center gap-2 text-xl font-black tracking-tight sm:text-2xl">

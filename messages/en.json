@@ -48,12 +48,14 @@
     "closeMenu": "Close menu",
     "skipToContent": "Skip to content",
     "consultancyShort": "Business",
-    "categories": "Categories",
-    "leaderboard": "Leaderboard",
+    "categories": "Discount categories",
+    "leaderboard": "Number 1 Brand/Shop",
     "forBusiness": "For business",
     "browseCategories": "Browse offer categories",
     "rewards": "Rewards",
-    "rewardsShort": "Rewards"
+    "rewardsShort": "Rewards",
+    "leaderboardShort": "Number 1",
+    "allOffers": "All offers"
   },
   "Category": {
     "grocery": "Grocery",
@@ -330,8 +332,8 @@
     "delete": "Remove"
   },
   "Leaderboard": {
-    "navTitle": "Leaderboard",
-    "title": "Shop leaderboard",
+    "navTitle": "Number 1 Brand/Shop",
+    "title": "Number 1 Brand/Shop",
     "subtitle": "Shops bid for placement here. Highest bid ranks first, and every position shows what it cost, with no hidden promotion.",
     "rank": "Rank",
     "shop": "Shop",
@@ -357,7 +359,9 @@
     "sponsored": "Sponsored",
     "disclosureShort": "These positions are bought and say nothing about quality.",
     "topThisWeek": "Top shops this week",
-    "topThisWeekSub": "Ranked by what each shop bid for the spot."
+    "topThisWeekSub": "Ranked by what each shop bid for the spot.",
+    "payToRank": "Pay to rank first",
+    "heroLead": "Shops bid for this board. The highest bid takes the top spot."
   },
   "Wizard": {
     "openLabel": "Find the right service",

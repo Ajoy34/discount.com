@@ -20,7 +20,7 @@ export default function BottomNav({
     search: string;
     offers: string;
     rewardsShort: string;
-    leaderboard: string;
+    leaderboardShort: string;
   };
 }) {
   const pathname = usePathname() ?? "";
@@ -31,7 +31,7 @@ export default function BottomNav({
     { href: `/${locale}/offers/`, label: t.offers, Icon: Tag },
     {
       href: `/${locale}/leaderboard/`,
-      label: t.leaderboard,
+      label: t.leaderboardShort,
       Icon: Trophy,
     },
     {
