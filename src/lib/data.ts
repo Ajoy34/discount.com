@@ -104,7 +104,7 @@ export const shops: Shop[] = [
     featured: true,
     openNow: true,
     hours: "8:00 — 22:00",
-    image: img("photo-1542838132"),
+    image: img("photo-1542838132-92c53300491e"),
     services: [
       {
         id: "freeDelivery",
@@ -139,7 +139,7 @@ export const shops: Shop[] = [
     featured: true,
     openNow: true,
     hours: "24 ঘন্টা",
-    image: img("photo-1586015555751"),
+    image: img("photo-1586015555751-63bb77f4322a"),
     services: [
       {
         id: "freeDelivery",
@@ -174,7 +174,7 @@ export const shops: Shop[] = [
     featured: false,
     openNow: false,
     hours: "6:00 — 20:00",
-    image: img("photo-1519708227418"),
+    image: img("photo-1519708227418-c8fd9a32b7a2"),
     services: [
       {
         id: "freezerRent",
@@ -204,7 +204,7 @@ export const shops: Shop[] = [
     featured: true,
     openNow: false,
     hours: "7:00 — 21:00",
-    image: img("photo-1540420773420"),
+    image: img("photo-1540420773420-3366772f4999"),
     services: [
       {
         id: "freeDelivery",
@@ -236,7 +236,7 @@ export const shops: Shop[] = [
     featured: false,
     openNow: false,
     hours: "9:00 — 20:00",
-    image: img("photo-1581092160607"),
+    image: img("photo-1581092160607-ee22621dd758"),
     services: [
       {
         id: "homeService",
@@ -267,7 +267,7 @@ export const shops: Shop[] = [
     featured: false,
     openNow: false,
     hours: "9:00 — 21:00",
-    image: img("photo-1456735190827"),
+    image: img("photo-1456735190827-d1262f71b8a3"),
     services: [],
   },
 ];
