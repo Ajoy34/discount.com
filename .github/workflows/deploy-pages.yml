@@ -36,7 +36,7 @@ jobs:
         run: npm run typecheck
 
       - name: Unit tests
-        run: npm test
+        run: bash scripts/ci-run.sh "unit tests" npm test
 
   # Builds once and shares ./out with the jobs that test and deploy it.
   build:
@@ -58,7 +58,7 @@ jobs:
         run: touch out/.nojekyll
 
       - name: Verify export
-        run: npm run test:export
+        run: bash scripts/ci-run.sh "export verification" npm run test:export
 
       - name: Configure Pages
         if: github.event_name != 'pull_request'
@@ -103,7 +103,7 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: End-to-end and accessibility tests
-        run: npm run test:e2e
+        run: bash scripts/ci-run.sh "end-to-end tests" npm run test:e2e
 
       - name: Upload report on failure
         if: failure()
