@@ -3,7 +3,7 @@ import next from "eslint-config-next/core-web-vitals";
 // eslint-config-next ships flat config; normalise so either shape works.
 const base = Array.isArray(next) ? next : [next];
 
-export default [
+const config = [
   {
     ignores: [
       ".next/**",
@@ -21,3 +21,5 @@ export default [
     },
   },
 ];
+
+export default config;

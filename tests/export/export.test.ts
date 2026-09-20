@@ -158,11 +158,24 @@ describe("assets and links", () => {
     }
   });
 
-  it("uses the configured contact details wherever it offers contact", () => {
+  it("offers the configured call and email routes on the page itself", () => {
     const html = read("/bn/consultancy/");
     expect(html).toContain("tel:+8801533033515");
     expect(html).toContain("mailto:vertextai101@gmail.com");
-    expect(html).toContain("wa.me/8801533033515");
+  });
+
+  it("ships the WhatsApp number in the bundle the form builds its link from", () => {
+    // The form composes the wa.me url at click time, so it lives in a chunk
+    // rather than in the page markup.
+    const bundled = walk(OUT)
+      .filter((f) => f.endsWith(".js") || f.endsWith(".html"))
+      .some((f) => readFileSync(f, "utf8").includes("wa.me/"));
+    expect(bundled).toBe(true);
+
+    const numberPresent = walk(OUT)
+      .filter((f) => f.endsWith(".js"))
+      .some((f) => readFileSync(f, "utf8").includes("8801533033515"));
+    expect(numberPresent).toBe(true);
   });
 });
 
