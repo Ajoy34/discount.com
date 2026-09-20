@@ -213,10 +213,20 @@
     "formService": "Which service do you need?",
     "formMessage": "Tell us briefly what you want to achieve",
     "formSubmit": "Send request",
-    "formNote": "This is a demo form — nothing is submitted yet.",
+    "formNote": "Your details are put into a message you send yourself — nothing is stored on this site.",
     "formSuccess": "Thanks! This is a demo, so no request was actually sent.",
     "featuresTitle": "What's included",
-    "otherServices": "Other services"
+    "otherServices": "Other services",
+    "sendViaWhatsapp": "Send on WhatsApp",
+    "sendViaEmail": "Send by email",
+    "orDivider": "or",
+    "formIncomplete": "Please add your name and phone number first.",
+    "requestHeading": "New consultancy request from Discounty",
+    "emailSubject": "Consultancy request — Discounty",
+    "contactDirect": "Prefer to talk directly?",
+    "callUs": "Call us",
+    "emailUs": "Email us",
+    "whatsappUs": "WhatsApp"
   },
   "Footer": {
     "tagline": "The hyperlocal shop and offer platform for Bangladesh.",
@@ -228,7 +238,10 @@
     "privacy": "Privacy",
     "terms": "Terms",
     "rights": "All rights reserved.",
-    "language": "Language"
+    "language": "Language",
+    "contactHeading": "Contact",
+    "callUs": "Call us",
+    "emailUs": "Email us"
   },
   "Common": {
     "comingSoon": "Coming soon",

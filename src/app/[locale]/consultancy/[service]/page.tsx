@@ -119,15 +119,23 @@ export default async function ServicePage({
         <h2 className="text-xl font-black tracking-tight">{t("ctaTitle")}</h2>
         <p className="mt-2 text-sm muted">{t("ctaDesc")}</p>
         <ConsultancyForm
+          locale={locale}
           t={{
             formName: t("formName"),
             formShop: t("formShop"),
             formPhone: t("formPhone"),
             formService: t("formService"),
             formMessage: t("formMessage"),
-            formSubmit: t("formSubmit"),
             formNote: t("formNote"),
-            formSuccess: t("formSuccess"),
+            formIncomplete: t("formIncomplete"),
+            requestHeading: t("requestHeading"),
+            emailSubject: t("emailSubject"),
+            sendViaWhatsapp: t("sendViaWhatsapp"),
+            sendViaEmail: t("sendViaEmail"),
+            orDivider: t("orDivider"),
+            contactDirect: t("contactDirect"),
+            callUs: t("callUs"),
+            emailUs: t("emailUs"),
             options: [
               { id: service.id, label: t(service.titleKey) },
               ...others.map((s) => ({ id: s.id, label: t(s.titleKey) })),

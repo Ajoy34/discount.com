@@ -51,6 +51,7 @@ export default async function LocaleLayout({
     terms: footer("terms"),
     rights: footer("rights"),
     language: footer("language"),
+    contactHeading: footer("contactHeading"),
     title: index("title"),
     home: nav("home"),
     search: nav("search"),

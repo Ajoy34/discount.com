@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { Mail, Phone } from "lucide-react";
+import { contact, displayPhone, telHref } from "@/lib/contact";
 import { localeLabels, otherLocale, type Locale } from "@/lib/i18n";
 
 interface FooterStrings {
@@ -12,6 +14,7 @@ interface FooterStrings {
   terms: string;
   rights: string;
   language: string;
+  contactHeading: string;
   title: string;
   home: string;
   search: string;
@@ -50,7 +53,7 @@ export default function Footer({
 
   return (
     <footer className="mt-16 border-t border-[var(--border-subtle)] bg-[var(--surface-card)]">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:grid-cols-2 lg:grid-cols-5">
         <div className="space-y-3">
           <p className="text-lg font-black tracking-tight">
             {t.title}
@@ -81,6 +84,32 @@ export default function Footer({
 
         <div className="space-y-3">
           <h2 className="text-xs font-bold uppercase tracking-wider muted">
+            {t.contactHeading}
+          </h2>
+          <ul className="space-y-2">
+            <li>
+              <a
+                href={telHref}
+                className="inline-flex items-center gap-2 text-sm font-medium hover:text-brand-600"
+              >
+                <Phone className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                {displayPhone(locale)}
+              </a>
+            </li>
+            <li>
+              <a
+                href={`mailto:${contact.email}`}
+                className="inline-flex items-center gap-2 break-all text-sm font-medium hover:text-brand-600"
+              >
+                <Mail className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                {contact.email}
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div className="space-y-3">
+          <h2 className="text-xs font-bold uppercase tracking-wider muted">
             {t.language}
           </h2>
           <Link
@@ -101,7 +130,12 @@ export default function Footer({
           <p className="flex gap-4">
             <span>{t.privacy}</span>
             <span>{t.terms}</span>
-            <span>{t.contact}</span>
+            <a
+              href={`mailto:${contact.email}`}
+              className="hover:text-brand-600"
+            >
+              {t.contact}
+            </a>
           </p>
         </div>
       </div>
