@@ -226,7 +226,12 @@
     "contactDirect": "Prefer to talk directly?",
     "callUs": "Call us",
     "emailUs": "Email us",
-    "whatsappUs": "WhatsApp"
+    "whatsappUs": "WhatsApp",
+    "msgName": "Name",
+    "msgShop": "Shop",
+    "msgPhone": "Phone",
+    "msgService": "Service",
+    "msgDetails": "Details"
   },
   "Footer": {
     "tagline": "The hyperlocal shop and offer platform for Bangladesh.",

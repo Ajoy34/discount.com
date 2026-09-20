@@ -22,6 +22,11 @@ interface Strings {
   formIncomplete: string;
   requestHeading: string;
   emailSubject: string;
+  msgName: string;
+  msgShop: string;
+  msgPhone: string;
+  msgService: string;
+  msgDetails: string;
   sendViaWhatsapp: string;
   sendViaEmail: string;
   orDivider: string;
@@ -57,11 +62,11 @@ export default function ConsultancyForm({
       { name, shop, phone, service, message },
       {
         heading: t.requestHeading,
-        name: t.formName,
-        shop: t.formShop,
-        phone: t.formPhone,
-        service: t.formService,
-        message: t.formMessage,
+        name: t.msgName,
+        shop: t.msgShop,
+        phone: t.msgPhone,
+        service: t.msgService,
+        message: t.msgDetails,
       },
     );
 

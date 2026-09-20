@@ -226,7 +226,12 @@
     "contactDirect": "সরাসরি কথা বলতে চান?",
     "callUs": "ফোন করুন",
     "emailUs": "ইমেইল করুন",
-    "whatsappUs": "হোয়াটসঅ্যাপ"
+    "whatsappUs": "হোয়াটসঅ্যাপ",
+    "msgName": "নাম",
+    "msgShop": "দোকান",
+    "msgPhone": "ফোন",
+    "msgService": "সেবা",
+    "msgDetails": "বিস্তারিত"
   },
   "Footer": {
     "tagline": "বাংলাদেশের হাইপারলোকাল শপ ও অফার প্লাটফর্ম।",
