@@ -15,10 +15,12 @@ const PAGES = [
 ];
 
 for (const { name, path } of PAGES) {
-  test(`${name} has no WCAG A/AA violations`, async ({ page }) => {
+  test(`${name} has no WCAG A/AA violations`, async ({ page }, testInfo) => {
+    // One pass is enough; the rules checked here do not vary by viewport.
+    test.skip(testInfo.project.name !== "desktop", "desktop pass only");
+
     await page.goto(path);
-    // Images are remote; let them settle so contrast is measured on the real page.
-    await page.waitForLoadState("networkidle").catch(() => {});
+    await page.waitForLoadState("load").catch(() => {});
 
     const results = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])

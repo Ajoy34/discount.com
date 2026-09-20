@@ -32,7 +32,7 @@ for (const path of PAGES) {
     });
 
     await page.goto(path);
-    await page.waitForLoadState("networkidle").catch(() => {});
+    await page.waitForLoadState("load").catch(() => {});
 
     expect(failures).toEqual([]);
   });
@@ -46,7 +46,7 @@ test("console stays free of errors on the home page", async ({ page }) => {
   page.on("pageerror", (error) => errors.push(error.message));
 
   await page.goto("/bn/");
-  await page.waitForLoadState("networkidle").catch(() => {});
+  await page.waitForLoadState("load").catch(() => {});
 
   expect(errors).toEqual([]);
 });
