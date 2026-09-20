@@ -107,7 +107,6 @@ export default function Header({
               onClick={() => setCatsOpen(!catsOpen)}
               aria-expanded={catsOpen}
               aria-controls="offer-categories"
-              aria-label={t.browseCategories}
               className={`inline-flex items-center gap-1.5 rounded-xl px-3 py-2 text-sm font-semibold transition-colors ${
                 catsOpen
                   ? "bg-[var(--surface-muted)]"

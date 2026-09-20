@@ -7,9 +7,7 @@ test.describe("offer categories in the nav", () => {
     test.skip(testInfo.project.name === "mobile", "desktop dropdown");
 
     await page.goto("en/");
-    const toggle = page.getByRole("button", {
-      name: "Browse offer categories",
-    });
+    const toggle = page.getByRole("button", { name: "Discount categories" });
     await expect(toggle).toHaveAttribute("aria-expanded", "false");
 
     await toggle.click();
@@ -26,9 +24,7 @@ test.describe("offer categories in the nav", () => {
     test.skip(testInfo.project.name === "mobile", "desktop dropdown");
 
     await page.goto("en/");
-    const toggle = page.getByRole("button", {
-      name: "Browse offer categories",
-    });
+    const toggle = page.getByRole("button", { name: "Discount categories" });
     await toggle.click();
     await expect(page.locator("#offer-categories")).toBeVisible();
     await page.keyboard.press("Escape");
@@ -356,7 +352,7 @@ test.describe("header", () => {
     test.skip(testInfo.project.name === "mobile", "desktop dropdown");
 
     await page.goto("en/");
-    await page.getByRole("button", { name: "Browse offer categories" }).click();
+    await page.getByRole("button", { name: "Discount categories" }).click();
     await page
       .locator("#offer-categories")
       .getByRole("link", { name: "All offers" })
