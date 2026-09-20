@@ -24,7 +24,15 @@
     "statAreas": "Areas covered",
     "growBusiness": "Grow your business",
     "growBusinessDesc": "Ads, AI-generated creatives, a website of your own and step-by-step guidance — built for Bangladeshi shop owners.",
-    "exploreConsultancy": "Explore business services"
+    "exploreConsultancy": "Explore business services",
+    "browseCategories": "Browse by category",
+    "trendingNow": "Trending now",
+    "trendingNowSub": "What people in your area are actually acting on.",
+    "forShopOwners": "For shop owners",
+    "servicesLead": "Advertise, get online and run a better shop",
+    "seeAllServices": "See all services",
+    "heroSearchLabel": "Search shops, products or offers",
+    "searchAction": "Search"
   },
   "Navigation": {
     "home": "Home",
@@ -344,7 +352,10 @@
     "boostIntro": "Tell us the shop and the weekly amount you want to bid and we will set it up.",
     "currentTop": "Current top bid",
     "viewFull": "View full leaderboard",
-    "sponsored": "Sponsored"
+    "sponsored": "Sponsored",
+    "disclosureShort": "These positions are bought and say nothing about quality.",
+    "topThisWeek": "Top shops this week",
+    "topThisWeekSub": "Ranked by what each shop bid for the spot."
   },
   "Wizard": {
     "openLabel": "Find the right service",

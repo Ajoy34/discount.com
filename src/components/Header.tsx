@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import {
   Briefcase,
   ChevronDown,
+  LayoutGrid,
   LogIn,
   MapPin,
   Menu,
@@ -102,36 +103,41 @@ export default function Header({
 
         {/* Customer navigation */}
         <nav aria-label={t.home} className="hidden items-center gap-1 md:flex">
-          {/* Offers, with its categories one click away */}
+          <Link
+            href={`/${locale}/offers/`}
+            className={`rounded-xl px-3 py-2 text-sm font-semibold transition-colors ${
+              isActive(`/${locale}/offers/`)
+                ? "bg-brand-50 text-brand-700 dark:bg-brand-950 dark:text-brand-300"
+                : "muted hover:bg-[var(--surface-muted)]"
+            }`}
+          >
+            <Tag className="me-1.5 inline h-4 w-4" aria-hidden="true" />
+            {t.offers}
+          </Link>
+
+          {/* Categories is its own item: a chevron alone was too easy to miss */}
           <div className="relative" ref={catsRef}>
-            <span className="flex items-center">
-              <Link
-                href={`/${locale}/offers/`}
-                className={`rounded-s-xl px-3 py-2 text-sm font-semibold transition-colors ${
-                  isActive(`/${locale}/offers/`)
-                    ? "bg-brand-50 text-brand-700 dark:bg-brand-950 dark:text-brand-300"
-                    : "muted hover:bg-[var(--surface-muted)]"
+            <button
+              type="button"
+              onClick={() => setCatsOpen(!catsOpen)}
+              aria-expanded={catsOpen}
+              aria-controls="offer-categories"
+              aria-label={t.browseCategories}
+              className={`inline-flex items-center gap-1.5 rounded-xl px-3 py-2 text-sm font-semibold transition-colors ${
+                catsOpen
+                  ? "bg-[var(--surface-muted)]"
+                  : "muted hover:bg-[var(--surface-muted)]"
+              }`}
+            >
+              <LayoutGrid className="h-4 w-4" aria-hidden="true" />
+              {t.categories}
+              <ChevronDown
+                className={`h-4 w-4 transition-transform ${
+                  catsOpen ? "rotate-180" : ""
                 }`}
-              >
-                <Tag className="me-1.5 inline h-4 w-4" aria-hidden="true" />
-                {t.offers}
-              </Link>
-              <button
-                type="button"
-                onClick={() => setCatsOpen(!catsOpen)}
-                aria-expanded={catsOpen}
-                aria-controls="offer-categories"
-                aria-label={t.browseCategories}
-                className="rounded-e-xl px-1.5 py-2 muted transition-colors hover:bg-[var(--surface-muted)]"
-              >
-                <ChevronDown
-                  className={`h-4 w-4 transition-transform ${
-                    catsOpen ? "rotate-180" : ""
-                  }`}
-                  aria-hidden="true"
-                />
-              </button>
-            </span>
+                aria-hidden="true"
+              />
+            </button>
 
             {catsOpen && (
               <div

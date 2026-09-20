@@ -156,8 +156,9 @@ test.describe("leaderboard", () => {
     await expect(page.locator("h1")).toContainText("Shop leaderboard");
     await expect(page.getByText("Paid placement")).toBeVisible();
     // Highest bidder leads, even though it is not the highest rated shop.
-    await expect(page.getByText("#1").first()).toBeVisible();
-    await expect(page.getByText("৳12,500").first()).toBeVisible();
+    const first = page.locator("ol li").first();
+    await expect(first).toContainText("Lazz Pharma Mirpur");
+    await expect(first).toContainText("৳12,500");
   });
 
   test("offers a route to bid for the top spot", async ({ page }) => {
