@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { Mail, Phone } from "lucide-react";
+import LocaleSwitch from "@/components/LocaleSwitch";
 import { contact, displayPhone, telHref } from "@/lib/contact";
-import { localeLabels, otherLocale, type Locale } from "@/lib/i18n";
+import type { Locale } from "@/lib/i18n";
 
 interface FooterStrings {
   tagline: string;
@@ -30,8 +31,6 @@ export default function Footer({
   locale: Locale;
   t: FooterStrings;
 }) {
-  const other = otherLocale(locale);
-
   const columns = [
     {
       heading: t.forCustomers,
@@ -112,13 +111,10 @@ export default function Footer({
           <h2 className="text-xs font-bold uppercase tracking-wider muted">
             {t.language}
           </h2>
-          <Link
-            href={`/${other}/`}
-            hrefLang={other}
+          <LocaleSwitch
+            locale={locale}
             className="inline-block rounded-xl border border-[var(--border-subtle)] px-3 py-2 text-sm font-bold hover:bg-[var(--surface-muted)]"
-          >
-            {localeLabels[other]}
-          </Link>
+          />
         </div>
       </div>
 
