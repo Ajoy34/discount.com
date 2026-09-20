@@ -241,7 +241,7 @@ test.describe("rewards", () => {
   test("starts a visitor at zero with nothing unlocked", async ({ page }) => {
     await page.goto("en/rewards/");
     await expect(page.locator("h1")).toContainText("Your rewards");
-    await expect(page.getByText("Newcomer")).toBeVisible();
+    await expect(page.getByText("Newcomer").first()).toBeVisible();
     await expect(page.getByText("0 of 6 earned")).toBeVisible();
   });
 
@@ -249,10 +249,18 @@ test.describe("rewards", () => {
     page,
   }) => {
     await page.goto("en/rewards/");
-    const earn = page.getByText("Report a discount that was not honoured");
-    await expect(earn).toBeVisible();
     // The earning table states the values, so the incentive is inspectable.
-    await expect(page.getByText("+20").first()).toBeVisible();
+    const row = page
+      .locator("li")
+      .filter({ hasText: "Report a discount that was not honoured" })
+      .first();
+    await expect(row).toContainText("+20");
+
+    const confirmRow = page
+      .locator("li")
+      .filter({ hasText: "Confirm a discount was honoured" })
+      .first();
+    await expect(confirmRow).toContainText("+10");
   });
 
   test("is honest about which perks are live", async ({ page }) => {

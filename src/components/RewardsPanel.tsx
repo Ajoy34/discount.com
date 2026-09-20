@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+
 import Link from "next/link";
 import {
   Award,
@@ -73,14 +73,7 @@ export default function RewardsPanel({
   /** Offer id to title, so saved offers can be listed by name. */
   savedOfferTitles: Record<string, string>;
 }) {
-  const state = useRewards();
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
-
-  // Before hydration the export has an empty state; showing it would flash.
-  const s = mounted
-    ? state
-    : { ...state, points: 0, saves: [], history: [], streak: 0 };
+  const s = useRewards();
 
   const level = levelFor(s.points);
   const next = nextLevel(s.points);
@@ -109,7 +102,7 @@ export default function RewardsPanel({
               <span className="text-3xl font-black">
                 {t.levelLabels[level.id]}
               </span>
-              <span className="text-sm font-bold muted" suppressHydrationWarning>
+              <span className="text-sm font-bold muted">
                 {formatNumber(s.points, locale)} {t.points}
               </span>
             </p>
@@ -117,7 +110,7 @@ export default function RewardsPanel({
 
           <p
             className="inline-flex items-center gap-2 rounded-2xl bg-[var(--surface-muted)] px-3.5 py-2 text-sm font-bold"
-            suppressHydrationWarning
+           
           >
             <Flame
               className="h-4 w-4 text-accent-600 dark:text-accent-300"
@@ -138,14 +131,14 @@ export default function RewardsPanel({
               style={{ width: `${progress}%` }}
             />
           </div>
-          <p className="mt-2 text-sm muted" suppressHydrationWarning>
+          <p className="mt-2 text-sm muted">
             {next
               ? t.nextLevel
                   .replace("{points}", formatNumber(next.min - s.points, locale))
                   .replace("{level}", t.levelLabels[next.id])
               : t.maxLevel}
           </p>
-          <p className="mt-1 text-sm muted" suppressHydrationWarning>
+          <p className="mt-1 text-sm muted">
             {s.streak > 1
               ? t.streakLive.replace("{count}", formatNumber(s.streak, locale))
               : t.streakOne}
@@ -157,7 +150,7 @@ export default function RewardsPanel({
       <section>
         <div className="mb-4 flex items-end justify-between gap-3">
           <h2 className="text-xl font-black tracking-tight">{t.badges}</h2>
-          <p className="text-sm muted" suppressHydrationWarning>
+          <p className="text-sm muted">
             {t.badgesEarned
               .replace("{earned}", formatNumber(earned.length, locale))
               .replace("{total}", formatNumber(BADGES.length, locale))}
@@ -174,9 +167,7 @@ export default function RewardsPanel({
             return (
               <li
                 key={badge.id}
-                className={`surface rounded-3xl p-5 ${
-                  unlocked ? "" : "opacity-75"
-                }`}
+                className="surface rounded-3xl p-5"
               >
                 <div className="flex items-start gap-3.5">
                   <span
@@ -202,7 +193,7 @@ export default function RewardsPanel({
                     {!unlocked && (
                       <p
                         className="mt-2 text-[11px] font-bold muted"
-                        suppressHydrationWarning
+                       
                       >
                         {t.progressOf
                           .replace("{current}", formatNumber(current, locale))
@@ -230,7 +221,7 @@ export default function RewardsPanel({
             {t.noSaves}
           </p>
         ) : (
-          <ul className="space-y-2.5" suppressHydrationWarning>
+          <ul className="space-y-2.5">
             {s.saves.map((id) => (
               <li key={id} className="surface rounded-2xl">
                 <Link
@@ -300,7 +291,7 @@ export default function RewardsPanel({
             {t.noActivity}
           </p>
         ) : (
-          <ul className="surface overflow-hidden rounded-3xl" suppressHydrationWarning>
+          <ul className="surface overflow-hidden rounded-3xl">
             {s.history.slice(0, 12).map((entry, i) => (
               <li
                 key={`${entry.at}-${i}`}

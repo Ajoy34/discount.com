@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Bookmark, BookmarkCheck } from "lucide-react";
 import { useRewards } from "@/components/useRewards";
 import { isSaved, POINTS, toggleSave } from "@/lib/rewards";
@@ -16,12 +16,9 @@ export default function SaveOfferButton({
   t: { save: string; saved: string; earned: string };
 }) {
   const state = useRewards();
-  const [mounted, setMounted] = useState(false);
   const [justEarned, setJustEarned] = useState(false);
 
-  useEffect(() => setMounted(true), []);
-
-  const saved = mounted && isSaved(state, offerId);
+  const saved = isSaved(state, offerId);
 
   const onClick = () => {
     const wasSaved = isSaved(state, offerId);

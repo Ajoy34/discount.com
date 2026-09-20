@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Link from "next/link";
 import { Flame, Sparkles } from "lucide-react";
 import { useRewards } from "@/components/useRewards";
@@ -24,12 +24,10 @@ export default function RewardsChip({
   };
 }) {
   const state = useRewards();
-  const [mounted, setMounted] = useState(false);
 
+  // The daily visit is the one reward granted on arrival rather than on an
+  // action, so it is credited here.
   useEffect(() => {
-    // Rendering the real figures before hydration would mismatch the export,
-    // which is built with an empty state.
-    setMounted(true);
     recordVisit();
   }, []);
 
@@ -46,12 +44,10 @@ export default function RewardsChip({
         aria-hidden="true"
       />
       <span className="sr-only">{t.rewards}: </span>
-      <span suppressHydrationWarning>
-        {mounted ? formatNumber(state.points, locale) : "0"}
-      </span>
+      <span>{formatNumber(state.points, locale)}</span>
       <span className="hidden muted sm:inline">{t.pointsShort}</span>
 
-      {mounted && state.streak > 1 && (
+      {state.streak > 1 && (
         <span className="inline-flex items-center gap-0.5 text-accent-700 dark:text-accent-300">
           <Flame className="h-3.5 w-3.5" aria-hidden="true" />
           <span className="sr-only">{t.streak}: </span>
