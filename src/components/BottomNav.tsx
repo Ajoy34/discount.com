@@ -19,7 +19,7 @@ export default function BottomNav({
     home: string;
     search: string;
     offers: string;
-    consultancy: string;
+    consultancyShort: string;
     dashboard: string;
   };
 }) {
@@ -31,7 +31,7 @@ export default function BottomNav({
     { href: `/${locale}/offers/`, label: t.offers, Icon: Tag },
     {
       href: `/${locale}/consultancy/`,
-      label: t.consultancy,
+      label: t.consultancyShort,
       Icon: Sparkles,
     },
     {

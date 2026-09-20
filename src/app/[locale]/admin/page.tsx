@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Check, ShieldCheck, Star, Tag, X } from "lucide-react";
 import { shops } from "@/lib/data";
@@ -5,6 +6,16 @@ import { getTranslator, isLocale, locales, type Locale } from "@/lib/i18n";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const l = isLocale(locale) ? (locale as Locale) : "bn";
+  return { title: `${getTranslator(l, "Admin")("title")} — ${getTranslator(l, "Common")("titleSuffix")}` };
 }
 
 export default async function AdminPage({

@@ -31,6 +31,7 @@ export default async function LocaleLayout({
     offers: nav("offers"),
     dashboard: nav("dashboard"),
     consultancy: nav("consultancy"),
+    consultancyShort: nav("consultancyShort"),
     login: nav("login"),
     menu: nav("menu"),
     closeMenu: nav("closeMenu"),

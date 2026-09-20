@@ -38,7 +38,8 @@
     "consultancy": "Business Services",
     "menu": "Menu",
     "closeMenu": "Close menu",
-    "skipToContent": "Skip to content"
+    "skipToContent": "Skip to content",
+    "consultancyShort": "Business"
   },
   "Category": {
     "grocery": "Grocery",
@@ -213,7 +214,9 @@
     "formMessage": "Tell us briefly what you want to achieve",
     "formSubmit": "Send request",
     "formNote": "This is a demo form — nothing is submitted yet.",
-    "formSuccess": "Thanks! This is a demo, so no request was actually sent."
+    "formSuccess": "Thanks! This is a demo, so no request was actually sent.",
+    "featuresTitle": "What's included",
+    "otherServices": "Other services"
   },
   "Footer": {
     "tagline": "The hyperlocal shop and offer platform for Bangladesh.",
@@ -232,6 +235,7 @@
     "demoData": "Demo data",
     "backHome": "Back to home",
     "notFoundTitle": "Page not found",
-    "notFoundDesc": "The page you are looking for does not exist or has moved."
+    "notFoundDesc": "The page you are looking for does not exist or has moved.",
+    "titleSuffix": "Discounty"
   }
 }

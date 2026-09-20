@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Tag } from "lucide-react";
 import OfferCard from "@/components/OfferCard";
@@ -6,6 +7,16 @@ import { getTranslator, isLocale, locales, type Locale } from "@/lib/i18n";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const l = isLocale(locale) ? (locale as Locale) : "bn";
+  return { title: `${getTranslator(l, "Offers")("title")} — ${getTranslator(l, "Common")("titleSuffix")}` };
 }
 
 export default async function OffersPage({

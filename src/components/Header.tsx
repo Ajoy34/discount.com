@@ -20,6 +20,7 @@ interface NavStrings {
   offers: string;
   dashboard: string;
   consultancy: string;
+  consultancyShort: string;
   login: string;
   menu: string;
   closeMenu: string;

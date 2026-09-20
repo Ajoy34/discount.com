@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import {
   ArrowRight,
@@ -14,6 +15,17 @@ import { getTranslator, isLocale, locales, type Locale } from "@/lib/i18n";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const l = isLocale(locale) ? (locale as Locale) : "bn";
+  const t = getTranslator(l, "Consultancy");
+  return { title: `${t("navTitle")} — ${getTranslator(l, "Common")("titleSuffix")}`, description: t("subtitle") };
 }
 
 export default async function ConsultancyPage({

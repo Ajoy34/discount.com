@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import SearchClient from "@/components/SearchClient";
 import { areas, categories } from "@/lib/data";
@@ -11,6 +12,16 @@ import {
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const l = isLocale(locale) ? (locale as Locale) : "bn";
+  return { title: `${getTranslator(l, "Search")("title")} — ${getTranslator(l, "Common")("titleSuffix")}` };
 }
 
 export default async function SearchPage({

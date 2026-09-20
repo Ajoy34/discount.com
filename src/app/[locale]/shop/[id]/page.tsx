@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import {
   ArrowLeft,
@@ -37,6 +38,21 @@ export function generateStaticParams() {
 }
 
 export const dynamicParams = false;
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; id: string }>;
+}): Promise<Metadata> {
+  const { locale, id } = await params;
+  const l = isLocale(locale) ? (locale as Locale) : "bn";
+  const shop = getShop(Number(id));
+  if (!shop) return {};
+  return {
+    title: `${shopName(shop, l)} — ${getTranslator(l, "Common")("titleSuffix")}`,
+    description: shopDescription(shop, l),
+  };
+}
 
 export default async function ShopPage({
   params,

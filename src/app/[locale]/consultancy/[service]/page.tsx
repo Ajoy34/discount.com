@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 import ServiceIcon from "@/components/ServiceIcon";
@@ -13,6 +14,22 @@ export function generateStaticParams() {
 }
 
 export const dynamicParams = false;
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; service: string }>;
+}): Promise<Metadata> {
+  const { locale, service: id } = await params;
+  const l = isLocale(locale) ? (locale as Locale) : "bn";
+  const service = getConsultancyService(id);
+  if (!service) return {};
+  const t = getTranslator(l, "Consultancy");
+  return {
+    title: `${t(service.titleKey)} — ${getTranslator(l, "Common")("titleSuffix")}`,
+    description: t(service.descKey),
+  };
+}
 
 export default async function ServicePage({
   params,
@@ -80,7 +97,7 @@ export default async function ServicePage({
 
       <section className="mt-8">
         <h2 className="mb-4 text-lg font-black tracking-tight">
-          {t("servicesTitle")}
+          {t("featuresTitle")}
         </h2>
         <ul className="grid gap-3 sm:grid-cols-2">
           {service.featureKeys.map((key) => (
@@ -121,7 +138,7 @@ export default async function ServicePage({
 
       <section className="mt-12">
         <h2 className="mb-4 text-lg font-black tracking-tight">
-          {t("servicesTitle")}
+          {t("otherServices")}
         </h2>
         <ul className="grid gap-4 sm:grid-cols-3">
           {others.map((other) => (
