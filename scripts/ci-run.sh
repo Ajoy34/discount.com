@@ -19,8 +19,8 @@ echo "::endgroup::"
 
 if [ "$code" -ne 0 ]; then
   echo "::error::${label} failed with exit code ${code}"
-  grep -nE 'FAIL|AssertionError|Error:|Expected|Received|✕|×|⨯|✘|at .*\.(ts|tsx|mjs):' "$log" \
-    | head -60 \
+  grep -nE 'AXE |FAIL|AssertionError|Error:|Expected|Received|✕|×|⨯|✘|at .*\.(ts|tsx|mjs):' "$log" \
+    | head -80 \
     | while IFS= read -r line; do
         printf '::error::%s\n' "${line//$'\r'/}"
       done

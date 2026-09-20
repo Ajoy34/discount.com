@@ -26,14 +26,23 @@ for (const { name, path } of PAGES) {
       .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
       .analyze();
 
-    const summary = results.violations.map((v) => ({
-      id: v.id,
-      impact: v.impact,
-      nodes: v.nodes.length,
-      help: v.help,
-    }));
+    // Logged with a marker so CI can republish these as annotations; the
+    // assertion diff alone gets truncated before the useful part.
+    for (const violation of results.violations) {
+      console.log(
+        `AXE ${path} | ${violation.id} | ${violation.impact} | ${violation.nodes.length} node(s) | ${violation.help}`,
+      );
+      for (const node of violation.nodes.slice(0, 2)) {
+        console.log(`AXE   target: ${node.target.join(" ")}`);
+        if (node.failureSummary) {
+          console.log(
+            `AXE   why: ${node.failureSummary.replace(/\s+/g, " ").slice(0, 200)}`,
+          );
+        }
+      }
+    }
 
-    expect(summary).toEqual([]);
+    expect(results.violations.map((v) => v.id)).toEqual([]);
   });
 }
 
