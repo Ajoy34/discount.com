@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Search, Tag, Briefcase, Trophy } from "lucide-react";
+import { Home, Search, Tag, Sparkles, Trophy } from "lucide-react";
 import type { Locale } from "@/lib/i18n";
 
 /**
@@ -19,7 +19,7 @@ export default function BottomNav({
     home: string;
     search: string;
     offers: string;
-    consultancyShort: string;
+    rewardsShort: string;
     leaderboard: string;
   };
 }) {
@@ -35,9 +35,9 @@ export default function BottomNav({
       Icon: Trophy,
     },
     {
-      href: `/${locale}/consultancy/`,
-      label: t.consultancyShort,
-      Icon: Briefcase,
+      href: `/${locale}/rewards/`,
+      label: t.rewardsShort,
+      Icon: Sparkles,
     },
   ];
 

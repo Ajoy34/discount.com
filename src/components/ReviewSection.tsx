@@ -12,6 +12,7 @@ import {
   removeLocalReview,
   subscribeToLocalReviews,
 } from "@/lib/localReviews";
+import { recordReview } from "@/lib/rewards";
 import { formatNumber, type Locale } from "@/lib/i18n";
 
 export interface ReviewStrings {
@@ -41,11 +42,14 @@ export interface ReviewStrings {
 
 export default function ReviewSection({
   offerId,
+  category,
   seed,
   locale,
   t,
 }: {
   offerId: number;
+  /** Counted towards the explorer badge. */
+  category: string;
   seed: Review[];
   locale: Locale;
   t: ReviewStrings;
@@ -92,6 +96,7 @@ export default function ReviewSection({
       helpful: 0,
     };
     addLocalReview(review);
+    recordReview({ honoured, category });
     setName("");
     setRating(0);
     setBody("");

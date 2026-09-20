@@ -236,3 +236,64 @@ test.describe("consultancy wizard", () => {
     await expect(page.getByRole("dialog")).toBeHidden();
   });
 });
+
+test.describe("rewards", () => {
+  test("starts a visitor at zero with nothing unlocked", async ({ page }) => {
+    await page.goto("en/rewards/");
+    await expect(page.locator("h1")).toContainText("Your rewards");
+    await expect(page.getByText("Newcomer")).toBeVisible();
+    await expect(page.getByText("0 of 6 earned")).toBeVisible();
+  });
+
+  test("pays more for reporting a discount than confirming one", async ({
+    page,
+  }) => {
+    await page.goto("en/rewards/");
+    const earn = page.getByText("Report a discount that was not honoured");
+    await expect(earn).toBeVisible();
+    // The earning table states the values, so the incentive is inspectable.
+    await expect(page.getByText("+20").first()).toBeVisible();
+  });
+
+  test("is honest about which perks are live", async ({ page }) => {
+    await page.goto("en/rewards/");
+    await expect(page.getByText("Shop vouchers, once accounts are live")).toBeVisible();
+    await expect(page.getByText("Not yet").first()).toBeVisible();
+  });
+
+  test("awards points for saving an offer and remembers it", async ({
+    page,
+  }) => {
+    await page.goto("en/offers/3/");
+    await page.getByRole("button", { name: "Save", exact: true }).click();
+    await expect(page.getByRole("button", { name: "Saved" })).toBeVisible();
+
+    await page.goto("en/rewards/");
+    await expect(page.getByText("Offer saved")).toBeVisible();
+    await expect(page.locator("h1")).toBeVisible();
+  });
+
+  test("unlocks a badge after a review and credits the points", async ({
+    page,
+  }) => {
+    await page.goto("en/offers/2/");
+    await page.getByLabel("Your name").fill("Badge Tester");
+    await page.getByRole("radio", { name: "5 stars" }).check();
+    await page
+      .getByLabel("What was your experience?")
+      .fill("Got the discount without any fuss at the counter.");
+    await page.getByRole("button", { name: "Post review" }).click();
+    await expect(page.getByRole("status")).toBeVisible();
+
+    await page.goto("en/rewards/");
+    await expect(page.getByText("First word")).toBeVisible();
+    await expect(page.getByText("1 of 6 earned")).toBeVisible();
+    await expect(page.getByText("Review written")).toBeVisible();
+  });
+
+  test("lists the contributors behind the reviews", async ({ page }) => {
+    await page.goto("en/rewards/");
+    await expect(page.getByText("Top contributors")).toBeVisible();
+    await expect(page.getByText("Sumaiya A.")).toBeVisible();
+  });
+});

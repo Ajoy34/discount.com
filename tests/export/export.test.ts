@@ -19,6 +19,7 @@ const expectedRoutes = [
     `/${locale}/admin/`,
     `/${locale}/consultancy/`,
     `/${locale}/leaderboard/`,
+    `/${locale}/rewards/`,
     ...consultancyServices.map((s) => `/${locale}/consultancy/${s.id}/`),
     ...shops.map((s) => `/${locale}/shop/${s.id}/`),
     ...offers.map((o) => `/${locale}/offers/${o.id}/`),

@@ -26,6 +26,7 @@ export default async function LocaleLayout({
   const footer = getTranslator(active, "Footer");
   const index = getTranslator(active, "Index");
   const cat = getTranslator(active, "Category");
+  const rw = getTranslator(active, "Rewards");
 
   const navStrings = {
     home: nav("home"),
@@ -38,6 +39,17 @@ export default async function LocaleLayout({
     categories: nav("categories"),
     browseCategories: nav("browseCategories"),
     forBusiness: nav("forBusiness"),
+    rewards: nav("rewards"),
+    rewardsShort: nav("rewardsShort"),
+    pointsShort: rw("pointsShort"),
+    streak: rw("streak"),
+    levelLabels: {
+      newcomer: rw("levelNewcomer"),
+      bronze: rw("levelBronze"),
+      silver: rw("levelSilver"),
+      gold: rw("levelGold"),
+      platinum: rw("levelPlatinum"),
+    },
     login: nav("login"),
     menu: nav("menu"),
     closeMenu: nav("closeMenu"),
@@ -65,6 +77,7 @@ export default async function LocaleLayout({
     consultancy: nav("consultancy"),
     dashboard: nav("dashboard"),
     leaderboard: nav("leaderboard"),
+    rewards: nav("rewards"),
   };
 
   const categoryOptions = categories.map((id) => ({ id, label: cat(id) }));

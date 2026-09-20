@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import OfferMap from "@/components/OfferMap";
 import ReviewSection from "@/components/ReviewSection";
+import SaveOfferButton from "@/components/SaveOfferButton";
 import {
   getOffer,
   getShop,
@@ -80,6 +81,7 @@ export default async function OfferPage({
   const tShop = getTranslator(locale, "Shop");
   const tCat = getTranslator(locale, "Category");
   const tReviews = getTranslator(locale, "Reviews");
+  const tRewards = getTranslator(locale, "Rewards");
 
   const signals = offerSignals(offer.id);
   const trust = trustScore(offer.id);
@@ -217,7 +219,19 @@ export default async function OfferPage({
             </p>
           )}
 
-          <div className="mt-4 grid grid-cols-3 gap-2">
+          <div className="mt-4">
+            <SaveOfferButton
+              offerId={offer.id}
+              locale={locale}
+              t={{
+                save: tRewards("save"),
+                saved: tRewards("saved"),
+                earned: tRewards("earned"),
+              }}
+            />
+          </div>
+
+          <div className="mt-3 grid grid-cols-3 gap-2">
             <a
               href={`tel:${shop.phone}`}
               className="inline-flex flex-col items-center justify-center gap-1 rounded-2xl bg-brand-600 px-2 py-3 text-xs font-bold text-white hover:bg-brand-700"
@@ -268,6 +282,7 @@ export default async function OfferPage({
 
       <ReviewSection
         offerId={offer.id}
+        category={shop.category}
         seed={seed}
         locale={locale}
         t={{

@@ -23,6 +23,7 @@ interface FooterStrings {
   consultancy: string;
   dashboard: string;
   leaderboard: string;
+  rewards: string;
 }
 
 export default function Footer({
@@ -40,6 +41,7 @@ export default function Footer({
         { href: `/${locale}/search/`, label: t.search },
         { href: `/${locale}/offers/`, label: t.offers },
         { href: `/${locale}/leaderboard/`, label: t.leaderboard },
+        { href: `/${locale}/rewards/`, label: t.rewards },
       ],
     },
     {

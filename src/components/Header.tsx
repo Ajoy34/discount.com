@@ -17,6 +17,7 @@ import {
   X,
 } from "lucide-react";
 import LocaleSwitch from "@/components/LocaleSwitch";
+import RewardsChip from "@/components/RewardsChip";
 import type { CategoryId } from "@/lib/data";
 import type { Locale } from "@/lib/i18n";
 
@@ -31,6 +32,10 @@ export interface NavStrings {
   categories: string;
   browseCategories: string;
   forBusiness: string;
+  rewards: string;
+  pointsShort: string;
+  streak: string;
+  levelLabels: Record<string, string>;
   login: string;
   menu: string;
   closeMenu: string;
@@ -198,6 +203,16 @@ export default function Header({
               {t.consultancy}
             </Link>
 
+            <RewardsChip
+              locale={locale}
+              t={{
+                rewards: t.rewards,
+                pointsShort: t.pointsShort,
+                streak: t.streak,
+                levelLabels: t.levelLabels,
+              }}
+            />
+
             <LocaleSwitch
               locale={locale}
               className="rounded-xl border border-[var(--border-subtle)] px-2.5 py-2 text-xs font-bold transition-colors hover:bg-[var(--surface-muted)]"
@@ -277,7 +292,19 @@ export default function Header({
               {t.consultancy}
             </Link>
 
-            <div className="mt-3 flex items-center gap-2 border-t border-[var(--border-subtle)] pt-3">
+            <div className="mt-3 border-t border-[var(--border-subtle)] pt-3">
+              <RewardsChip
+                locale={locale}
+                t={{
+                  rewards: t.rewards,
+                  pointsShort: t.pointsShort,
+                  streak: t.streak,
+                  levelLabels: t.levelLabels,
+                }}
+              />
+            </div>
+
+            <div className="mt-3 flex items-center gap-2">
               <Link
                 href={`/${locale}/login/`}
                 className="flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-brand-600 px-4 py-2.5 text-sm font-bold text-white"
