@@ -51,7 +51,7 @@ export default async function AdminPage({
     <div className="mx-auto max-w-5xl px-4 py-8">
       <header className="mb-8">
         <h1 className="flex items-center gap-2 text-2xl font-black tracking-tight sm:text-3xl">
-          <ShieldCheck className="h-6 w-6 text-brand-600" aria-hidden="true" />
+          <ShieldCheck className="h-6 w-6 text-brand-600 dark:text-brand-400" aria-hidden="true" />
           {t("title")}
         </h1>
         <p className="mt-1 text-sm muted">{t("verificationQueue")}</p>

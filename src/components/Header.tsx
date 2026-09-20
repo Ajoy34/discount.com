@@ -62,7 +62,7 @@ export default function Header({
           className="shrink-0 text-lg font-black tracking-tight"
         >
           {t.title}
-          <span className="text-brand-600">.</span>
+          <span className="text-brand-600 dark:text-brand-400">.</span>
         </Link>
 
         <span className="hidden items-center gap-1 rounded-full bg-[var(--surface-muted)] px-2.5 py-1 text-xs font-semibold muted sm:inline-flex">

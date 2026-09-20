@@ -50,7 +50,7 @@ export default async function ServicePage({
     <div className="mx-auto max-w-3xl px-4 py-8">
       <Link
         href={`/${locale}/consultancy/`}
-        className="mb-6 inline-flex items-center gap-1.5 text-sm font-semibold muted hover:text-brand-600"
+        className="mb-6 inline-flex items-center gap-1.5 text-sm font-semibold muted hover:text-brand-600 dark:hover:text-brand-400"
       >
         <ArrowLeft className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />
         {t("navTitle")}
@@ -106,7 +106,7 @@ export default async function ServicePage({
               className="surface flex items-start gap-2.5 rounded-2xl p-4 text-sm"
             >
               <Check
-                className="mt-0.5 h-4 w-4 shrink-0 text-brand-600"
+                className="mt-0.5 h-4 w-4 shrink-0 text-brand-600 dark:text-brand-400"
                 aria-hidden="true"
               />
               {t(key)}

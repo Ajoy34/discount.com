@@ -34,7 +34,7 @@ export default function RootPage() {
       <script dangerouslySetInnerHTML={{ __html: redirectScript }} />
       <div className="space-y-6">
         <p className="text-2xl font-black tracking-tight">
-          Discounty<span className="text-brand-600">.</span>
+          Discounty<span className="text-brand-600 dark:text-brand-400">.</span>
         </p>
         <p className="muted text-sm">Choose a language — ভাষা বেছে নিন</p>
         <div className="flex items-center justify-center gap-3">

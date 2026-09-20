@@ -149,7 +149,7 @@ export default async function ConsultancyPage({
                 {service.featureKeys.map((key) => (
                   <li key={key} className="flex items-start gap-2 text-sm">
                     <Check
-                      className="mt-0.5 h-4 w-4 shrink-0 text-brand-600"
+                      className="mt-0.5 h-4 w-4 shrink-0 text-brand-600 dark:text-brand-400"
                       aria-hidden="true"
                     />
                     {t(key)}

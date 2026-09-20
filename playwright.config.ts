@@ -24,6 +24,13 @@ export default defineConfig({
   projects: [
     { name: "desktop", use: { ...devices["Desktop Chrome"] } },
     { name: "mobile", use: { ...devices["Pixel 7"] } },
+    // The dark theme is a first-class surface, so axe checks it too.
+    {
+      name: "dark",
+      use: { ...devices["Desktop Chrome"], colorScheme: "dark" },
+      // Only the accessibility sweep; behaviour does not change with theme.
+      testMatch: /accessibility\.spec\.ts/,
+    },
   ],
 
   // Serves the real build output, base path and all.

@@ -101,7 +101,7 @@ export default async function DashboardPage({
             </div>
             <p className="text-3xl font-black">{formatNumber(value, locale)}</p>
             {delta ? (
-              <span className="mt-1 inline-block text-xs font-semibold text-brand-600">
+              <span className="mt-1 inline-block text-xs font-semibold text-brand-600 dark:text-brand-400">
                 ↑ {delta} {t("last30Days")}
               </span>
             ) : (
@@ -157,7 +157,7 @@ export default async function DashboardPage({
           </div>
           <Link
             href={`/${locale}/consultancy/`}
-            className="hidden shrink-0 items-center gap-1 text-sm font-bold text-brand-600 hover:text-brand-700 sm:inline-flex"
+            className="hidden shrink-0 items-center gap-1 text-sm font-bold text-brand-600 dark:text-brand-400 hover:text-brand-700 sm:inline-flex"
           >
             {tc("learnMore")}
             <ArrowRight className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />

@@ -96,7 +96,7 @@ export default async function ShopPage({
     <div className="mx-auto max-w-4xl px-4 py-6">
       <Link
         href={`/${locale}/search/`}
-        className="mb-4 inline-flex items-center gap-1.5 text-sm font-semibold muted hover:text-brand-600"
+        className="mb-4 inline-flex items-center gap-1.5 text-sm font-semibold muted hover:text-brand-600 dark:hover:text-brand-400"
       >
         <ArrowLeft className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />
         {t("backToSearch")}

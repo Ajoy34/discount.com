@@ -47,7 +47,7 @@
   --surface-muted: oklch(0.967 0.003 250);
   --border-subtle: oklch(0.923 0.004 250);
   --text-strong: oklch(0.21 0.006 250);
-  --text-muted: oklch(0.551 0.014 250);
+  --text-muted: oklch(0.515 0.015 250);
   --ring-focus: oklch(0.567 0.151 150);
 }
 

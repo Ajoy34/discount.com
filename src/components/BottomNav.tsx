@@ -57,7 +57,7 @@ export default function BottomNav({
                 href={href}
                 aria-current={active ? "page" : undefined}
                 className={`flex flex-col items-center gap-1 px-1 py-2.5 text-[11px] font-semibold transition-colors ${
-                  active ? "text-brand-600" : "muted"
+                  active ? "text-brand-600 dark:text-brand-400" : "muted"
                 }`}
               >
                 <Icon

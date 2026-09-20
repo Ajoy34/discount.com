@@ -16,8 +16,11 @@ const PAGES = [
 
 for (const { name, path } of PAGES) {
   test(`${name} has no WCAG A/AA violations`, async ({ page }, testInfo) => {
-    // One pass is enough; the rules checked here do not vary by viewport.
-    test.skip(testInfo.project.name !== "desktop", "desktop pass only");
+    // Runs once per colour scheme; these rules do not vary by viewport.
+    test.skip(
+      !["desktop", "dark"].includes(testInfo.project.name),
+      "one pass per colour scheme",
+    );
 
     await page.goto(path);
     await page.waitForLoadState("load").catch(() => {});
@@ -30,7 +33,7 @@ for (const { name, path } of PAGES) {
     // assertion diff alone gets truncated before the useful part.
     for (const violation of results.violations) {
       console.log(
-        `AXE ${path} | ${violation.id} | ${violation.impact} | ${violation.nodes.length} node(s) | ${violation.help}`,
+        `AXE [${testInfo.project.name}] ${path} | ${violation.id} | ${violation.impact} | ${violation.nodes.length} node(s) | ${violation.help}`,
       );
       for (const node of violation.nodes.slice(0, 2)) {
         console.log(`AXE   target: ${node.target.join(" ")}`);

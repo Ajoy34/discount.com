@@ -262,7 +262,7 @@ function SectionHeading({
       </h2>
       <Link
         href={href}
-        className="inline-flex shrink-0 items-center gap-1 text-sm font-bold text-brand-600 hover:text-brand-700"
+        className="inline-flex shrink-0 items-center gap-1 text-sm font-bold text-brand-600 dark:text-brand-400 hover:text-brand-700"
       >
         {linkLabel}
         <ArrowRight className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />

@@ -56,7 +56,7 @@ export default function LoginClient({
       <div className="mb-8 text-center">
         <p className="text-2xl font-black tracking-tight">
           {t.brand}
-          <span className="text-brand-600">.</span>
+          <span className="text-brand-600 dark:text-brand-400">.</span>
         </p>
         <h1 className="mt-3 text-xl font-black">{t.title}</h1>
       </div>
@@ -80,7 +80,7 @@ export default function LoginClient({
                 >
                   <Icon
                     className={`mb-2 h-6 w-6 ${
-                      role === id ? "text-brand-600" : "muted"
+                      role === id ? "text-brand-600 dark:text-brand-400" : "muted"
                     }`}
                     aria-hidden="true"
                   />
@@ -126,7 +126,7 @@ export default function LoginClient({
           <button
             type="button"
             onClick={() => setStep("phone")}
-            className="inline-flex items-center gap-1.5 text-sm font-semibold muted hover:text-brand-600"
+            className="inline-flex items-center gap-1.5 text-sm font-semibold muted hover:text-brand-600 dark:hover:text-brand-400"
           >
             <ArrowLeft className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />
             {t.wrongNumber}

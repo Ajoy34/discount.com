@@ -57,7 +57,7 @@ export default function Footer({
         <div className="space-y-3">
           <p className="text-lg font-black tracking-tight">
             {t.title}
-            <span className="text-brand-600">.</span>
+            <span className="text-brand-600 dark:text-brand-400">.</span>
           </p>
           <p className="max-w-xs text-sm muted">{t.tagline}</p>
         </div>
@@ -72,7 +72,7 @@ export default function Footer({
                 <li key={link.href + link.label}>
                   <Link
                     href={link.href}
-                    className="text-sm font-medium hover:text-brand-600"
+                    className="text-sm font-medium hover:text-brand-600 dark:hover:text-brand-400"
                   >
                     {link.label}
                   </Link>
@@ -90,7 +90,7 @@ export default function Footer({
             <li>
               <a
                 href={telHref}
-                className="inline-flex items-center gap-2 text-sm font-medium hover:text-brand-600"
+                className="inline-flex items-center gap-2 text-sm font-medium hover:text-brand-600 dark:hover:text-brand-400"
               >
                 <Phone className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
                 {displayPhone(locale)}
@@ -99,7 +99,7 @@ export default function Footer({
             <li>
               <a
                 href={`mailto:${contact.email}`}
-                className="inline-flex items-center gap-2 break-all text-sm font-medium hover:text-brand-600"
+                className="inline-flex items-center gap-2 break-all text-sm font-medium hover:text-brand-600 dark:hover:text-brand-400"
               >
                 <Mail className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
                 {contact.email}
@@ -132,7 +132,7 @@ export default function Footer({
             <span>{t.terms}</span>
             <a
               href={`mailto:${contact.email}`}
-              className="hover:text-brand-600"
+              className="hover:text-brand-600 dark:hover:text-brand-400"
             >
               {t.contact}
             </a>
