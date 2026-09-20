@@ -1,0 +1,137 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens. Every colour below is defined once here and referenced through
+ * Tailwind utilities, so light and dark stay in step and the brand can be
+ * retuned in one place.
+ */
+@theme {
+  --font-sans: var(--font-inter), var(--font-bengali), ui-sans-serif, system-ui,
+    sans-serif;
+
+  /* Brand green — the platform's primary identity. */
+  --color-brand-50: oklch(0.971 0.032 154);
+  --color-brand-100: oklch(0.941 0.061 154);
+  --color-brand-200: oklch(0.888 0.104 154);
+  --color-brand-300: oklch(0.816 0.146 153);
+  --color-brand-400: oklch(0.735 0.171 151);
+  --color-brand-500: oklch(0.668 0.173 150);
+  --color-brand-600: oklch(0.567 0.151 150);
+  --color-brand-700: oklch(0.472 0.124 150);
+  --color-brand-800: oklch(0.397 0.1 150);
+  --color-brand-900: oklch(0.341 0.084 151);
+  --color-brand-950: oklch(0.21 0.056 151);
+
+  /* Accent amber — discounts, offers and anything urgent. */
+  --color-accent-50: oklch(0.98 0.023 76);
+  --color-accent-100: oklch(0.954 0.056 76);
+  --color-accent-200: oklch(0.906 0.108 76);
+  --color-accent-300: oklch(0.845 0.155 76);
+  --color-accent-400: oklch(0.783 0.18 71);
+  --color-accent-500: oklch(0.724 0.18 64);
+  --color-accent-600: oklch(0.643 0.177 58);
+  --color-accent-700: oklch(0.535 0.155 55);
+  --color-accent-800: oklch(0.45 0.13 54);
+  --color-accent-900: oklch(0.391 0.109 54);
+
+  --radius-4xl: 1.75rem;
+}
+
+/*
+ * Surface variables. These carry the light/dark switch so components can say
+ * bg-[var(--surface)] once instead of repeating a dark: variant everywhere.
+ */
+:root {
+  --surface-page: oklch(0.985 0.002 250);
+  --surface-card: oklch(1 0 0);
+  --surface-muted: oklch(0.967 0.003 250);
+  --border-subtle: oklch(0.923 0.004 250);
+  --text-strong: oklch(0.21 0.006 250);
+  --text-muted: oklch(0.551 0.014 250);
+  --ring-focus: oklch(0.567 0.151 150);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --surface-page: oklch(0.165 0.005 265);
+    --surface-card: oklch(0.216 0.006 265);
+    --surface-muted: oklch(0.26 0.007 265);
+    --border-subtle: oklch(0.31 0.008 265);
+    --text-strong: oklch(0.96 0.002 250);
+    --text-muted: oklch(0.68 0.012 250);
+    --ring-focus: oklch(0.735 0.171 151);
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--surface-page);
+    color: var(--text-strong);
+    text-wrap: pretty;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  /* One consistent, clearly visible focus ring across the whole app. */
+  :focus-visible {
+    outline: 2px solid var(--ring-focus);
+    outline-offset: 2px;
+    border-radius: 0.375rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .surface {
+    background-color: var(--surface-card);
+    border: 1px solid var(--border-subtle);
+  }
+
+  .muted {
+    color: var(--text-muted);
+  }
+
+  /* Cards lift very slightly on hover — enough to read as interactive. */
+  .card-interactive {
+    transition:
+      transform 180ms ease,
+      box-shadow 180ms ease,
+      border-color 180ms ease;
+  }
+
+  .card-interactive:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 12px 24px -12px rgb(0 0 0 / 0.18),
+      0 4px 8px -4px rgb(0 0 0 / 0.08);
+  }
+
+  /* Hides a scrollbar on the horizontal category / filter rails. */
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "Discounty — হাইপারলোকাল শপ ও অফার প্লাটফর্ম",
+  "short_name": "Discounty",
+  "description": "আপনার কাছের দোকান খুঁজুন, সরাসরি ডিসকাউন্ট দেখুন এবং সেরা ডিল উপভোগ করুন।",
+  "start_url": "/discount.com/",
+  "scope": "/discount.com/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#17803d",
+  "lang": "bn",
+  "icons": []
+}
