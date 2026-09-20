@@ -36,6 +36,8 @@ export default async function LocaleLayout({
     consultancy: nav("consultancy"),
     consultancyShort: nav("consultancyShort"),
     leaderboard: nav("leaderboard"),
+    leaderboardShort: nav("leaderboardShort"),
+    rewardsShort: nav("rewardsShort"),
     categories: nav("categories"),
     browseCategories: nav("browseCategories"),
     forBusiness: nav("forBusiness"),
