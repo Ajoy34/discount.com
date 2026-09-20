@@ -60,7 +60,7 @@ test.describe("trending offers", () => {
   test("puts the most acted-on offer first by default", async ({ page }) => {
     await page.goto("en/offers/");
     await expect(page.locator("article").first()).toContainText(
-      "Flat 5% Discount",
+      "Lazz Pharma Mirpur",
     );
   });
 

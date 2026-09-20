@@ -30,10 +30,10 @@ jobs:
         run: npm install --no-audit --no-fund
 
       - name: Lint
-        run: npm run lint
+        run: bash scripts/ci-run.sh "lint" npm run lint
 
       - name: Type check
-        run: npm run typecheck
+        run: bash scripts/ci-run.sh "type check" npm run typecheck
 
       - name: Unit tests
         run: bash scripts/ci-run.sh "unit tests" npm test

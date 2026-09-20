@@ -17,6 +17,20 @@ echo "::group::${label} output"
 cat "$log"
 echo "::endgroup::"
 
+if [ "$code" -ne 0 ] && [ -n "${GITHUB_STEP_SUMMARY:-}" ]; then
+  {
+    printf '### %s failed (exit %s)
+
+' "$label" "$code"
+    printf '```
+'
+    tail -c 60000 "$log"
+    printf '
+```
+'
+  } >>"$GITHUB_STEP_SUMMARY"
+fi
+
 if [ "$code" -ne 0 ]; then
   echo "::error::${label} failed with exit code ${code}"
   grep -nE 'AXE |FAIL|AssertionError|Error:|Expected|Received|✕|×|⨯|✘|at .*\.(ts|tsx|mjs):' "$log" \
