@@ -96,12 +96,19 @@ describe("page documents", () => {
     }
   });
 
-  it("leaves no unresolved route placeholders in filenames", () => {
-    // The previous export shipped files like __next.$d$locale.shop.$d$id.txt.
-    const offenders = walk(OUT)
+  it("emits a prefetch payload for every dynamic segment it names", () => {
+    // Next names RSC prefetch payloads after the route pattern, so $d$ in a
+    // filename is expected. What broke before was payloads being referenced
+    // but never written; the e2e run asserts no request 404s at runtime.
+    const payloads = walk(OUT)
       .map((f) => relative(OUT, f))
-      .filter((f) => f.includes("$d$"));
-    expect(offenders).toEqual([]);
+      .filter((f) => f.endsWith(".txt"));
+    expect(payloads.length).toBeGreaterThan(0);
+
+    const empty = payloads.filter(
+      (f) => statSync(join(OUT, f)).size === 0,
+    );
+    expect(empty).toEqual([]);
   });
 
   it("renders no raw message keys", () => {
@@ -179,13 +186,23 @@ describe("assets and links", () => {
   });
 });
 
+/** Markup escapes &, so compare against the escaped form. */
+const escapeHtml = (text: string) =>
+  text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
 describe("shop pages", () => {
   it("renders each shop's own name and dial link", () => {
     for (const shop of shops) {
       const html = read(`/en/shop/${shop.id}/`);
-      expect(html).toContain(shop.nameEn);
+      expect(html, `${shop.nameEn} missing`).toContain(escapeHtml(shop.nameEn));
       expect(html).toContain(`tel:${shop.phone}`);
       expect(html).toContain(`wa.me/${shop.whatsapp}`);
+    }
+  });
+
+  it("renders the Bengali name on the bn page", () => {
+    for (const shop of shops) {
+      expect(read(`/bn/shop/${shop.id}/`)).toContain(escapeHtml(shop.nameBn));
     }
   });
 });

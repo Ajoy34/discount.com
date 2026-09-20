@@ -70,19 +70,26 @@ export default async function SearchPage({
   }));
 
   return (
-    <Suspense
-      fallback={
-        <p className="mx-auto max-w-6xl px-4 py-12 text-sm muted">
-          {strings.loading}
-        </p>
-      }
-    >
-      <SearchClient
-        locale={locale}
-        t={strings}
-        categoryOptions={categoryOptions}
-        areaOptions={areaOptions}
-      />
-    </Suspense>
+    <div className="mx-auto max-w-6xl px-4 py-8">
+      {/*
+        The heading lives here rather than in the client component: reading
+        the query string opts that subtree out of prerendering, so anything
+        inside it is absent from the exported HTML.
+      */}
+      <h1 className="mb-6 text-2xl font-black tracking-tight sm:text-3xl">
+        {strings.title}
+      </h1>
+
+      <Suspense
+        fallback={<p className="py-8 text-sm muted">{strings.loading}</p>}
+      >
+        <SearchClient
+          locale={locale}
+          t={strings}
+          categoryOptions={categoryOptions}
+          areaOptions={areaOptions}
+        />
+      </Suspense>
+    </div>
   );
 }

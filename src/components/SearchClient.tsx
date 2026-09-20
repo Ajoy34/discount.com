@@ -121,19 +121,14 @@ export default function SearchClient({
   ];
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8">
+    <>
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h1 className="text-2xl font-black tracking-tight sm:text-3xl">
-            {t.title}
-          </h1>
-          <p className="mt-1 text-sm muted" aria-live="polite">
-            {t.shopsFoundOne.replace(
-              "{count}",
-              formatNumber(results.length, locale),
-            )}
-          </p>
-        </div>
+        <p className="text-sm muted" aria-live="polite">
+          {t.shopsFoundOne.replace(
+            "{count}",
+            formatNumber(results.length, locale),
+          )}
+        </p>
 
         <div
           className="flex items-center gap-1 rounded-2xl border border-[var(--border-subtle)] p-1"
@@ -284,6 +279,6 @@ export default function SearchClient({
           ))}
         </div>
       )}
-    </div>
+    </>
   );
 }
