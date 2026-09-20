@@ -427,3 +427,213 @@ export function getConsultancyService(
 ): ConsultancyService | undefined {
   return consultancyServices.find((s) => s.id === id);
 }
+
+/* ------------------------------------------------------------------ */
+/* Offer engagement: reviews, trust and trending                       */
+/* ------------------------------------------------------------------ */
+
+export interface Review {
+  id: string;
+  offerId: number;
+  author: string;
+  /** 1–5. */
+  rating: number;
+  body: string;
+  /** ISO date. */
+  postedAt: string;
+  /** Reviewer says the discount was honoured as advertised. */
+  honoured: boolean;
+  helpful: number;
+}
+
+export interface OfferSignals {
+  /** People who opened the offer in the last 30 days. */
+  views: number;
+  /** People who tapped call, WhatsApp or directions from it. */
+  claims: number;
+  /** Reviewers who confirmed the discount was real, over total who said. */
+  confirmed: number;
+  disputed: number;
+  /** Saved for later — a softer signal than a claim. */
+  saves: number;
+}
+
+/**
+ * Seed reviews. A static export has nowhere to persist new ones, so anything
+ * a visitor writes is kept in their own browser and merged on top of these.
+ */
+export const reviews: Review[] = [
+  {
+    id: "r1",
+    offerId: 1,
+    author: "Sumaiya A.",
+    rating: 5,
+    body: "Rice and oil both discounted exactly as advertised. Staff knew about the offer straight away.",
+    postedAt: "2026-09-02",
+    honoured: true,
+    helpful: 14,
+  },
+  {
+    id: "r2",
+    offerId: 1,
+    author: "Tanvir H.",
+    rating: 4,
+    body: "Good price but the 5kg pack was out of stock on Friday evening. Went back Saturday and got it.",
+    postedAt: "2026-08-28",
+    honoured: true,
+    helpful: 6,
+  },
+  {
+    id: "r3",
+    offerId: 2,
+    author: "Nusrat J.",
+    rating: 5,
+    body: "Flat 5% on everything including prescription medicine. They also checked my blood pressure free.",
+    postedAt: "2026-09-10",
+    honoured: true,
+    helpful: 22,
+  },
+  {
+    id: "r4",
+    offerId: 3,
+    author: "Rakib M.",
+    rating: 3,
+    body: "Hilsa was fresh but the discount only applied to the larger fish, which was not clear in the offer.",
+    postedAt: "2026-09-05",
+    honoured: false,
+    helpful: 31,
+  },
+  {
+    id: "r5",
+    offerId: 4,
+    author: "Farhana K.",
+    rating: 5,
+    body: "The combo basket is genuinely good value. Delivered in the morning as promised.",
+    postedAt: "2026-09-12",
+    honoured: true,
+    helpful: 9,
+  },
+  {
+    id: "r6",
+    offerId: 5,
+    author: "Imran S.",
+    rating: 4,
+    body: "Bulk photocopy rate is the cheapest near the college. Queue gets long around exam time.",
+    postedAt: "2026-08-19",
+    honoured: true,
+    helpful: 4,
+  },
+];
+
+const signals: Record<number, OfferSignals> = {
+  1: { views: 3120, claims: 486, confirmed: 41, disputed: 2, saves: 210 },
+  2: { views: 5410, claims: 902, confirmed: 78, disputed: 1, saves: 388 },
+  3: { views: 2280, claims: 197, confirmed: 19, disputed: 7, saves: 96 },
+  4: { views: 1870, claims: 341, confirmed: 33, disputed: 1, saves: 174 },
+  5: { views: 940, claims: 118, confirmed: 12, disputed: 0, saves: 51 },
+};
+
+export function offerSignals(offerId: number): OfferSignals {
+  return (
+    signals[offerId] ?? {
+      views: 0,
+      claims: 0,
+      confirmed: 0,
+      disputed: 0,
+      saves: 0,
+    }
+  );
+}
+
+export function reviewsForOffer(offerId: number): Review[] {
+  return reviews.filter((r) => r.offerId === offerId);
+}
+
+export function getOffer(id: number): Offer | undefined {
+  return offers.find((o) => o.id === id);
+}
+
+export function averageRating(offerId: number, extra: Review[] = []): number {
+  const all = [...reviewsForOffer(offerId), ...extra];
+  if (all.length === 0) return 0;
+  return all.reduce((sum, r) => sum + r.rating, 0) / all.length;
+}
+
+/**
+ * How well the advertised discount has held up in practice, as a percentage.
+ * Offers nobody has vouched for yet sit at zero rather than a flattering 100.
+ */
+export function trustScore(offerId: number): number {
+  const { confirmed, disputed } = offerSignals(offerId);
+  const total = confirmed + disputed;
+  if (total === 0) return 0;
+  return Math.round((confirmed / total) * 100);
+}
+
+/**
+ * Trending blends reach, intent and honesty so a heavily viewed offer that
+ * people dispute cannot outrank a smaller one that reliably delivers.
+ */
+export function trendingScore(offerId: number): number {
+  const s = offerSignals(offerId);
+  const engagement = s.claims * 3 + s.saves * 2 + s.views * 0.1;
+  const trust = trustScore(offerId) / 100;
+  return Math.round(engagement * (0.4 + 0.6 * trust));
+}
+
+/* ------------------------------------------------------------------ */
+/* Leaderboard: paid placement                                         */
+/* ------------------------------------------------------------------ */
+
+export interface LeaderboardEntry {
+  shopId: number;
+  /** Taka committed for this cycle. Ranking is highest bid first. */
+  bid: number;
+  /** Where the shop sat last cycle, for the movement indicator. */
+  previousRank: number;
+  sponsor?: string;
+}
+
+export const leaderboard: LeaderboardEntry[] = [
+  { shopId: 2, bid: 12500, previousRank: 2 },
+  { shopId: 4, bid: 9800, previousRank: 1 },
+  { shopId: 1, bid: 7400, previousRank: 4 },
+  { shopId: 6, bid: 5200, previousRank: 3 },
+  { shopId: 3, bid: 3100, previousRank: 6 },
+  { shopId: 5, bid: 1500, previousRank: 5 },
+];
+
+export interface RankedShop extends LeaderboardEntry {
+  rank: number;
+  shop: Shop;
+  movement: number;
+}
+
+/** Highest bid first; ties fall back to rating so the order is stable. */
+export function rankedLeaderboard(): RankedShop[] {
+  return [...leaderboard]
+    .sort((a, b) => {
+      if (b.bid !== a.bid) return b.bid - a.bid;
+      const sa = getShop(a.shopId)?.rating ?? 0;
+      const sb = getShop(b.shopId)?.rating ?? 0;
+      return sb - sa;
+    })
+    .flatMap((entry, i) => {
+      const shop = getShop(entry.shopId);
+      if (!shop) return [];
+      return [
+        {
+          ...entry,
+          shop,
+          rank: i + 1,
+          movement: entry.previousRank - (i + 1),
+        },
+      ];
+    });
+}
+
+/** What it would cost to take the top spot. */
+export function bidToBeat(): number {
+  const top = rankedLeaderboard()[0];
+  return top ? top.bid + 500 : 1000;
+}

@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
-import { consultancyServices, shops } from "@/lib/data";
+import { consultancyServices, offers, shops } from "@/lib/data";
 import { locales } from "@/lib/i18n";
 
 const OUT = join(process.cwd(), "out");
@@ -18,8 +18,10 @@ const expectedRoutes = [
     `/${locale}/dashboard/`,
     `/${locale}/admin/`,
     `/${locale}/consultancy/`,
+    `/${locale}/leaderboard/`,
     ...consultancyServices.map((s) => `/${locale}/consultancy/${s.id}/`),
     ...shops.map((s) => `/${locale}/shop/${s.id}/`),
+    ...offers.map((o) => `/${locale}/offers/${o.id}/`),
   ]),
 ];
 

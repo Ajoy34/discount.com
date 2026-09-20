@@ -22,6 +22,7 @@ interface FooterStrings {
   offers: string;
   consultancy: string;
   dashboard: string;
+  leaderboard: string;
 }
 
 export default function Footer({
@@ -38,6 +39,7 @@ export default function Footer({
         { href: `/${locale}/`, label: t.home },
         { href: `/${locale}/search/`, label: t.search },
         { href: `/${locale}/offers/`, label: t.offers },
+        { href: `/${locale}/leaderboard/`, label: t.leaderboard },
       ],
     },
     {

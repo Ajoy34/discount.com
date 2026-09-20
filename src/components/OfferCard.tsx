@@ -22,7 +22,7 @@ export default function OfferCard({
   return (
     <article className="card-interactive surface relative overflow-hidden rounded-3xl">
       <Link
-        href={`/${locale}/shop/${shop.id}/`}
+        href={`/${locale}/offers/${offer.id}/`}
         className="absolute inset-0 z-10"
       >
         <span className="sr-only">{offerTitle(offer, locale)}</span>

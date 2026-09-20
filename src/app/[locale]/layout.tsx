@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import BottomNav from "@/components/BottomNav";
+import { categories } from "@/lib/data";
 import { getTranslator, isLocale, locales, type Locale } from "@/lib/i18n";
 
 export function generateStaticParams() {
@@ -24,6 +25,7 @@ export default async function LocaleLayout({
   const nav = getTranslator(active, "Navigation");
   const footer = getTranslator(active, "Footer");
   const index = getTranslator(active, "Index");
+  const cat = getTranslator(active, "Category");
 
   const navStrings = {
     home: nav("home"),
@@ -32,6 +34,10 @@ export default async function LocaleLayout({
     dashboard: nav("dashboard"),
     consultancy: nav("consultancy"),
     consultancyShort: nav("consultancyShort"),
+    leaderboard: nav("leaderboard"),
+    categories: nav("categories"),
+    browseCategories: nav("browseCategories"),
+    forBusiness: nav("forBusiness"),
     login: nav("login"),
     menu: nav("menu"),
     closeMenu: nav("closeMenu"),
@@ -58,7 +64,10 @@ export default async function LocaleLayout({
     offers: nav("offers"),
     consultancy: nav("consultancy"),
     dashboard: nav("dashboard"),
+    leaderboard: nav("leaderboard"),
   };
+
+  const categoryOptions = categories.map((id) => ({ id, label: cat(id) }));
 
   return (
     <>
@@ -74,7 +83,7 @@ export default async function LocaleLayout({
       >
         {navStrings.skipToContent}
       </a>
-      <Header locale={active} t={navStrings} />
+      <Header locale={active} t={navStrings} categories={categoryOptions} />
       <main id="main" className="flex-1 pb-20 md:pb-0">
         {children}
       </main>

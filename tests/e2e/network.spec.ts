@@ -5,6 +5,8 @@ const PAGES = [
   "en/",
   "bn/search/",
   "bn/offers/",
+  "bn/offers/2/",
+  "en/leaderboard/",
   "bn/shop/1/",
   "en/shop/5/",
   "bn/consultancy/",

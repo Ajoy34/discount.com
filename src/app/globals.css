@@ -135,3 +135,71 @@
     display: none;
   }
 }
+
+/*
+ * Leaflet ships its own light chrome. These rules keep the map readable in
+ * dark mode and replace the default marker image, whose asset paths do not
+ * survive a static export, with a styled pin.
+ */
+.discounty-pin {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 9999px 9999px 9999px 2px;
+  transform: rotate(-45deg);
+  background: var(--color-brand-600);
+  border: 2px solid #fff;
+  box-shadow: 0 4px 10px -2px rgb(0 0 0 / 0.35);
+}
+
+.discounty-pin b {
+  transform: rotate(45deg);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.leaflet-container {
+  font-family: inherit;
+  background: var(--surface-muted);
+}
+
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: var(--surface-card);
+  color: var(--text-strong);
+}
+
+.leaflet-popup-content {
+  margin: 0.75rem 0.9rem;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.leaflet-popup-content a {
+  color: var(--color-brand-700);
+  font-weight: 700;
+}
+
+.leaflet-bar a,
+.leaflet-control-attribution {
+  background: var(--surface-card);
+  color: var(--text-muted);
+}
+
+.leaflet-bar a {
+  color: var(--text-strong);
+}
+
+@media (prefers-color-scheme: dark) {
+  /* The stock tiles are light; damp them so they sit in a dark page. */
+  :root:not([data-theme="light"]) .leaflet-tile-pane {
+    filter: brightness(0.75) contrast(1.1) saturate(0.85);
+  }
+
+  :root:not([data-theme="light"]) .leaflet-popup-content a {
+    color: var(--color-brand-300);
+  }
+}

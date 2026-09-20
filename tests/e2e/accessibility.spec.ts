@@ -6,6 +6,8 @@ const PAGES = [
   { name: "home (en)", path: "en/" },
   { name: "search", path: "en/search/" },
   { name: "offers", path: "en/offers/" },
+  { name: "offer detail", path: "en/offers/1/" },
+  { name: "leaderboard", path: "en/leaderboard/" },
   { name: "shop detail", path: "en/shop/1/" },
   { name: "consultancy", path: "en/consultancy/" },
   { name: "service detail", path: "en/consultancy/ai-ad/" },

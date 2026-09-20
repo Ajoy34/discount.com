@@ -7,14 +7,16 @@ import {
   Sparkles,
   Store,
   Tag,
+  Trophy,
   Megaphone,
   Globe,
   BookOpen,
 } from "lucide-react";
-import ShopCard from "@/components/ShopCard";
 import OfferCard from "@/components/OfferCard";
 import CategoryRail from "@/components/CategoryRail";
-import { offers, shops } from "@/lib/data";
+import LeaderboardBoard from "@/components/Leaderboard";
+import ConsultancyWizard from "@/components/ConsultancyWizard";
+import { consultancyServices, offers, shops } from "@/lib/data";
 import {
   formatNumber,
   getTranslator,
@@ -49,8 +51,9 @@ export default async function HomePage({
 
   const t = getTranslator(locale, "Index");
   const tc = getTranslator(locale, "Consultancy");
+  const tl = getTranslator(locale, "Leaderboard");
+  const tw = getTranslator(locale, "Wizard");
 
-  const featured = shops.filter((s) => s.featured);
   const topOffers = [...offers].sort((a, b) => b.discount - a.discount).slice(0, 3);
 
   const stats = [
@@ -58,6 +61,34 @@ export default async function HomePage({
     { value: offers.length, label: t("statOffers") },
     { value: 3, label: t("statAreas") },
   ];
+
+  const wizardStrings = {
+    openLabel: tw("openLabel"),
+    title: tw("title"),
+    intro: tw("intro"),
+    q1: tw("q1"), q1a: tw("q1a"), q1b: tw("q1b"), q1c: tw("q1c"),
+    q2: tw("q2"), q2a: tw("q2a"), q2b: tw("q2b"), q2c: tw("q2c"), q2d: tw("q2d"),
+    q3: tw("q3"), q3a: tw("q3a"), q3b: tw("q3b"), q3c: tw("q3c"),
+    back: tw("back"),
+    next: tw("next"),
+    skip: tw("skip"),
+    close: tw("close"),
+    resultTitle: tw("resultTitle"),
+    resultWhy: tw("resultWhy"),
+    seeService: tw("seeService"),
+    startOver: tw("startOver"),
+    browsing: tw("browsing"),
+    seeOffers: tw("seeOffers"),
+    step: tw("step"),
+  };
+
+  const wizardServices = consultancyServices.map((service) => ({
+    id: service.id,
+    title: tc(service.titleKey),
+    description: tc(service.descKey),
+    icon: service.icon,
+    accent: service.accent,
+  }));
 
   const consultancyTeasers = [
     { Icon: Megaphone, label: tc("adCreationTitle") },
@@ -191,32 +222,39 @@ export default async function HomePage({
               ))}
             </ul>
 
-            <Link
-              href={`/${locale}/consultancy/`}
-              className="mt-7 inline-flex items-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-bold text-violet-800 shadow-lg transition-transform hover:scale-[1.03]"
-            >
-              {t("exploreConsultancy")}
-              <ArrowRight className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />
-            </Link>
+            <div className="mt-7 flex flex-wrap items-center gap-3">
+              <ConsultancyWizard
+                locale={locale}
+                autoOpen
+                t={wizardStrings}
+                services={wizardServices}
+              />
+              <Link
+                href={`/${locale}/consultancy/`}
+                className="inline-flex items-center gap-2 rounded-2xl bg-white/15 px-5 py-3 text-sm font-bold backdrop-blur-sm transition-colors hover:bg-white/25"
+              >
+                {t("exploreConsultancy")}
+                <ArrowRight
+                  className="h-4 w-4 rtl:rotate-180"
+                  aria-hidden="true"
+                />
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
       {/* ---------------------------------------------------------------- */}
-      {/* Featured shops                                                   */}
+      {/* Leaderboard                                                      */}
       {/* ---------------------------------------------------------------- */}
       <section className="mx-auto max-w-6xl px-4 pb-12">
         <SectionHeading
-          title={t("featuredShops")}
-          href={`/${locale}/search/`}
-          linkLabel={t("viewAll")}
-          Icon={Store}
+          title={tl("title")}
+          href={`/${locale}/leaderboard/`}
+          linkLabel={tl("viewFull")}
+          Icon={Trophy}
         />
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {featured.map((shop) => (
-            <ShopCard key={shop.id} shop={shop} locale={locale} />
-          ))}
-        </div>
+        <LeaderboardBoard locale={locale} limit={3} showHow={false} />
       </section>
 
       {/* ---------------------------------------------------------------- */}

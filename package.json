@@ -2,7 +2,7 @@
   "name": "discounty",
   "version": "1.0.0",
   "private": true,
-  "description": "Discounty — hyperlocal shop, offer and business consultancy platform for Bangladesh",
+  "description": "Discounty \u2014 hyperlocal shop, offer and business consultancy platform for Bangladesh",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -17,15 +17,17 @@
     "verify": "npm run lint && npm run typecheck && npm test && npm run build && npm run test:export && npm run test:e2e"
   },
   "dependencies": {
+    "leaflet": "1.9.4",
+    "lucide-react": "1.47.0",
     "next": "16.3.5",
     "react": "19.3.0",
-    "react-dom": "19.3.0",
-    "lucide-react": "1.47.0"
+    "react-dom": "19.3.0"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.13.0",
     "@playwright/test": "1.63.0",
     "@tailwindcss/postcss": "4.3.3",
+    "@types/leaflet": "^1.9",
     "@types/node": "^24",
     "@types/react": "^19",
     "@types/react-dom": "^19",

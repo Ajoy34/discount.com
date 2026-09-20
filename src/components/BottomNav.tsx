@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Search, Tag, Sparkles, LayoutDashboard } from "lucide-react";
+import { Home, Search, Tag, Briefcase, Trophy } from "lucide-react";
 import type { Locale } from "@/lib/i18n";
 
 /**
@@ -20,7 +20,7 @@ export default function BottomNav({
     search: string;
     offers: string;
     consultancyShort: string;
-    dashboard: string;
+    leaderboard: string;
   };
 }) {
   const pathname = usePathname() ?? "";
@@ -30,14 +30,14 @@ export default function BottomNav({
     { href: `/${locale}/search/`, label: t.search, Icon: Search },
     { href: `/${locale}/offers/`, label: t.offers, Icon: Tag },
     {
-      href: `/${locale}/consultancy/`,
-      label: t.consultancyShort,
-      Icon: Sparkles,
+      href: `/${locale}/leaderboard/`,
+      label: t.leaderboard,
+      Icon: Trophy,
     },
     {
-      href: `/${locale}/dashboard/`,
-      label: t.dashboard,
-      Icon: LayoutDashboard,
+      href: `/${locale}/consultancy/`,
+      label: t.consultancyShort,
+      Icon: Briefcase,
     },
   ];
 
