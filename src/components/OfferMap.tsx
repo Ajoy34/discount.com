@@ -40,8 +40,7 @@ export default function OfferMap({
     if (!node || points.length === 0) return;
 
     (async () => {
-      const mod = await import("leaflet");
-      const L = ((mod as { default?: typeof mod }).default ?? mod);
+      const L = (await import("leaflet")).default;
       if (cancelled || !container.current) return;
 
       // Leaflet's default marker images resolve to paths that do not survive a

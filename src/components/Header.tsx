@@ -47,10 +47,18 @@ export default function Header({
   t: NavStrings;
   categories: { id: CategoryId; label: string }[];
 }) {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [catsOpen, setCatsOpen] = useState(false);
   const catsRef = useRef<HTMLDivElement | null>(null);
   const pathname = usePathname() ?? "";
+
+  // Both menus remember the path they were opened on, so navigating away
+  // closes them without an effect that writes state on every render.
+  const [menuPath, setMenuPath] = useState<string | null>(null);
+  const [catsPath, setCatsPath] = useState<string | null>(null);
+  const menuOpen = menuPath === pathname;
+  const catsOpen = catsPath === pathname;
+
+  const setMenuOpen = (open: boolean) => setMenuPath(open ? pathname : null);
+  const setCatsOpen = (open: boolean) => setCatsPath(open ? pathname : null);
 
   // A dropdown that only closes via its own button is a trap on desktop.
   useEffect(() => {
@@ -68,11 +76,6 @@ export default function Header({
       document.removeEventListener("keydown", onKey);
     };
   }, [catsOpen]);
-
-  useEffect(() => {
-    setMenuOpen(false);
-    setCatsOpen(false);
-  }, [pathname]);
 
   const isActive = (href: string) => pathname.startsWith(href.slice(0, -1));
 
@@ -115,7 +118,7 @@ export default function Header({
               </Link>
               <button
                 type="button"
-                onClick={() => setCatsOpen((v) => !v)}
+                onClick={() => setCatsOpen(!catsOpen)}
                 aria-expanded={catsOpen}
                 aria-controls="offer-categories"
                 aria-label={t.browseCategories}
@@ -206,7 +209,7 @@ export default function Header({
 
         <button
           type="button"
-          onClick={() => setMenuOpen((v) => !v)}
+          onClick={() => setMenuOpen(!menuOpen)}
           aria-expanded={menuOpen}
           aria-controls="mobile-menu"
           aria-label={menuOpen ? t.closeMenu : t.menu}

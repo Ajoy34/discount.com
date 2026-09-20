@@ -56,7 +56,9 @@ export default function ReviewSection({
   const [error, setError] = useState(false);
   const [saved, setSaved] = useState(false);
 
-  // Read after mount so the server and first client render agree.
+  // Local reviews live in storage the server cannot see, so they can only be
+  // read after mount. This runs once per offer and settles immediately.
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => {
     setMine(localReviews(offerId));
   }, [offerId]);
