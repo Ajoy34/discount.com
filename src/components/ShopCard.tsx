@@ -42,7 +42,7 @@ export default function ShopCard({
         />
         <div className="absolute inset-x-0 top-0 flex items-start justify-between gap-2 p-3">
           {shop.featured && (
-            <span className="rounded-full bg-accent-500 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-white shadow-sm">
+            <span className="rounded-full bg-accent-700 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-white shadow-sm">
               {tSearch("featured")}
             </span>
           )}

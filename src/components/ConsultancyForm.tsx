@@ -161,7 +161,7 @@ export default function ConsultancyForm({
         <button
           type="button"
           onClick={() => send("whatsapp")}
-          className="inline-flex flex-1 items-center justify-center gap-2 rounded-2xl bg-[#25D366] px-5 py-3.5 text-sm font-bold text-white transition-[filter] hover:brightness-95"
+          className="inline-flex flex-1 items-center justify-center gap-2 rounded-2xl bg-[#25D366] px-5 py-3.5 text-sm font-bold text-zinc-950 transition-[filter] hover:brightness-95"
         >
           <MessageCircle className="h-4 w-4" aria-hidden="true" />
           {t.sendViaWhatsapp}

@@ -16,7 +16,7 @@
   --color-brand-300: oklch(0.816 0.146 153);
   --color-brand-400: oklch(0.735 0.171 151);
   --color-brand-500: oklch(0.668 0.173 150);
-  --color-brand-600: oklch(0.567 0.151 150);
+  --color-brand-600: oklch(0.525 0.142 150);
   --color-brand-700: oklch(0.472 0.124 150);
   --color-brand-800: oklch(0.397 0.1 150);
   --color-brand-900: oklch(0.341 0.084 151);
@@ -48,7 +48,7 @@
   --border-subtle: oklch(0.923 0.004 250);
   --text-strong: oklch(0.21 0.006 250);
   --text-muted: oklch(0.515 0.015 250);
-  --ring-focus: oklch(0.567 0.151 150);
+  --ring-focus: oklch(0.525 0.142 150);
 }
 
 @media (prefers-color-scheme: dark) {

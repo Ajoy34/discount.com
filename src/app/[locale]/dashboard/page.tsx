@@ -140,7 +140,7 @@ export default async function DashboardPage({
             </Link>
             <button
               type="button"
-              className="rounded-xl bg-accent-500 px-4 py-2 text-xs font-bold text-white hover:bg-accent-600"
+              className="rounded-xl bg-accent-700 px-4 py-2 text-xs font-bold text-white hover:bg-accent-800"
             >
               {t("postOffer")}
             </button>

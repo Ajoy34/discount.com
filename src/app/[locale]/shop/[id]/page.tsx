@@ -82,7 +82,7 @@ export default async function ShopPage({
       href: `https://wa.me/${shop.whatsapp}`,
       label: t("whatsapp"),
       Icon: MessageCircle,
-      className: "bg-[#25D366] text-white hover:brightness-95",
+      className: "bg-[#25D366] text-zinc-950 hover:brightness-95",
     },
     {
       href: `https://www.google.com/maps/search/?api=1&query=${shop.lat},${shop.lng}`,
@@ -216,7 +216,7 @@ export default async function ShopPage({
                     {tOffers("validUntil")}: {offer.validUntil}
                   </p>
                 </div>
-                <span className="shrink-0 rounded-2xl bg-accent-500 px-3 py-2 text-sm font-black text-white">
+                <span className="shrink-0 rounded-2xl bg-accent-700 px-3 py-2 text-sm font-black text-white">
                   {formatNumber(offer.discount, locale)}% {t("off")}
                 </span>
               </li>

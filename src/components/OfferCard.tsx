@@ -42,7 +42,7 @@ export default function OfferCard({
           aria-hidden="true"
         />
 
-        <span className="absolute top-3 start-3 rounded-full bg-accent-500 px-3 py-1 text-xs font-black text-white shadow-sm">
+        <span className="absolute top-3 start-3 rounded-full bg-accent-700 px-3 py-1 text-xs font-black text-white shadow-sm">
           {formatNumber(offer.discount, locale)}% {tShop("off")}
         </span>
 
