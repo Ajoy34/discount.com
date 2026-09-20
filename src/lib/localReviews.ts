@@ -9,6 +9,52 @@ const KEY = "discounty.reviews.v1";
 
 type Store = Record<string, Review[]>;
 
+const listeners = new Set<() => void>();
+
+/**
+ * Snapshots have to be referentially stable or useSyncExternalStore will spin,
+ * so the parsed store is cached against the raw string it came from.
+ */
+let cachedRaw: string | null = null;
+let cachedStore: Store = {};
+const EMPTY: Review[] = [];
+
+function emit(): void {
+  for (const listener of listeners) listener();
+}
+
+/** Subscribes to local review changes, including edits in another tab. */
+export function subscribeToLocalReviews(onChange: () => void): () => void {
+  listeners.add(onChange);
+  window.addEventListener("storage", onChange);
+  return () => {
+    listeners.delete(onChange);
+    window.removeEventListener("storage", onChange);
+  };
+}
+
+export function localReviewsSnapshot(offerId: number): Review[] {
+  let raw: string | null = null;
+  try {
+    raw = window.localStorage.getItem(KEY);
+  } catch {
+    raw = null;
+  }
+
+  if (raw !== cachedRaw) {
+    cachedRaw = raw;
+    cachedStore = read();
+  }
+
+  const list = cachedStore[String(offerId)];
+  return Array.isArray(list) ? list : EMPTY;
+}
+
+/** The server has no storage, so it always sees an empty list. */
+export function localReviewsServerSnapshot(): Review[] {
+  return EMPTY;
+}
+
 function read(): Store {
   if (typeof window === "undefined") return {};
   try {
@@ -30,17 +76,14 @@ function write(store: Store): void {
   }
 }
 
-export function localReviews(offerId: number): Review[] {
-  const list = read()[String(offerId)];
-  return Array.isArray(list) ? list : [];
-}
-
 export function addLocalReview(review: Review): Review[] {
   const store = read();
   const key = String(review.offerId);
   const next = [review, ...(store[key] ?? [])];
   store[key] = next;
   write(store);
+  cachedRaw = null;
+  emit();
   return next;
 }
 
@@ -50,6 +93,8 @@ export function removeLocalReview(offerId: number, id: string): Review[] {
   const next = (store[key] ?? []).filter((r) => r.id !== id);
   store[key] = next;
   write(store);
+  cachedRaw = null;
+  emit();
   return next;
 }
 

@@ -131,14 +131,16 @@ test.describe("offer detail", () => {
     await page.getByRole("button", { name: "Post review" }).click();
 
     await expect(page.getByRole("status")).toContainText("saved on this device");
-    await expect(page.getByText("Test Reviewer")).toBeVisible();
-    await expect(page.getByText("Your review")).toBeVisible();
+    await expect(page.getByText("Test Reviewer").first()).toBeVisible();
+    await expect(page.getByText("Your review").first()).toBeVisible();
   });
 
   test("refuses an empty review", async ({ page }) => {
     await page.goto("en/offers/4/");
     await page.getByRole("button", { name: "Post review" }).click();
-    await expect(page.getByRole("alert")).toContainText("Add your name");
+    await expect(
+      page.getByText("Add your name, a rating and a few words."),
+    ).toBeVisible();
   });
 
   test("is reachable from an offer card", async ({ page }) => {

@@ -64,10 +64,10 @@ export default function Header({
   useEffect(() => {
     if (!catsOpen) return;
     const onDown = (e: MouseEvent) => {
-      if (!catsRef.current?.contains(e.target as Node)) setCatsOpen(false);
+      if (!catsRef.current?.contains(e.target as Node)) setCatsPath(null);
     };
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setCatsOpen(false);
+      if (e.key === "Escape") setCatsPath(null);
     };
     document.addEventListener("mousedown", onDown);
     document.addEventListener("keydown", onKey);

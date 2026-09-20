@@ -1,14 +1,16 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState, useSyncExternalStore } from "react";
 import { AlertCircle, CheckCircle2, ShieldCheck, ShieldX, ThumbsUp, Trash2 } from "lucide-react";
 import { Stars, StarInput } from "@/components/StarRating";
 import type { Review } from "@/lib/data";
 import {
   addLocalReview,
-  localReviews,
+  localReviewsServerSnapshot,
+  localReviewsSnapshot,
   newReviewId,
   removeLocalReview,
+  subscribeToLocalReviews,
 } from "@/lib/localReviews";
 import { formatNumber, type Locale } from "@/lib/i18n";
 
@@ -48,7 +50,6 @@ export default function ReviewSection({
   locale: Locale;
   t: ReviewStrings;
 }) {
-  const [mine, setMine] = useState<Review[]>([]);
   const [name, setName] = useState("");
   const [rating, setRating] = useState(0);
   const [body, setBody] = useState("");
@@ -56,12 +57,14 @@ export default function ReviewSection({
   const [error, setError] = useState(false);
   const [saved, setSaved] = useState(false);
 
-  // Local reviews live in storage the server cannot see, so they can only be
-  // read after mount. This runs once per offer and settles immediately.
-  // eslint-disable-next-line react-hooks/set-state-in-effect
-  useEffect(() => {
-    setMine(localReviews(offerId));
-  }, [offerId]);
+  // Local reviews live in storage the server cannot see. Subscribing to them
+  // keeps the render in step without writing state from an effect.
+  const snapshot = useCallback(() => localReviewsSnapshot(offerId), [offerId]);
+  const mine = useSyncExternalStore(
+    subscribeToLocalReviews,
+    snapshot,
+    localReviewsServerSnapshot,
+  );
 
   const all = useMemo(() => [...mine, ...seed], [mine, seed]);
   const average = useMemo(
@@ -88,7 +91,7 @@ export default function ReviewSection({
       honoured,
       helpful: 0,
     };
-    setMine(addLocalReview(review));
+    addLocalReview(review);
     setName("");
     setRating(0);
     setBody("");
@@ -269,9 +272,7 @@ export default function ReviewSection({
                   {isMine && (
                     <button
                       type="button"
-                      onClick={() =>
-                        setMine(removeLocalReview(offerId, review.id))
-                      }
+                      onClick={() => removeLocalReview(offerId, review.id)}
                       className="inline-flex items-center gap-1.5 text-xs font-bold text-red-700 hover:underline dark:text-red-300"
                     >
                       <Trash2 className="h-3.5 w-3.5" aria-hidden="true" />
