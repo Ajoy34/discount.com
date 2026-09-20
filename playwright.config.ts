@@ -1,7 +1,7 @@
 import { defineConfig, devices } from "@playwright/test";
 
 const PORT = 4173;
-const BASE = `http://localhost:${PORT}/discount.com`;
+const BASE = `http://localhost:${PORT}/discount.com/`;
 
 export default defineConfig({
   testDir: "./tests/e2e",
@@ -12,7 +12,7 @@ export default defineConfig({
   timeout: 20_000,
   expect: { timeout: 7_000 },
   globalTimeout: 8 * 60_000,
-  maxFailures: process.env.CI ? 15 : 0,
+  maxFailures: process.env.CI ? 40 : 0,
   reporter: process.env.CI ? [["list"], ["html", { open: "never" }]] : "list",
 
   use: {
@@ -29,7 +29,7 @@ export default defineConfig({
   // Serves the real build output, base path and all.
   webServer: {
     command: "node tests/static-server.mjs",
-    url: `${BASE}/bn/`,
+    url: `${BASE}bn/`,
     reuseExistingServer: !process.env.CI,
     timeout: 60_000,
   },

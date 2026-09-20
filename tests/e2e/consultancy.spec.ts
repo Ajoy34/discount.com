@@ -31,7 +31,7 @@ async function captureWhatsApp(page: Page): Promise<string | null> {
 
 test.describe("consultancy landing", () => {
   test("presents all four services with prices", async ({ page }) => {
-    await page.goto("/en/consultancy/");
+    await page.goto("en/consultancy/");
     await expect(page.getByRole("heading", { name: "Ad creation" })).toBeVisible();
     await expect(page.getByRole("heading", { name: "AI ad generator" })).toBeVisible();
     await expect(page.getByRole("heading", { name: "Website building" })).toBeVisible();
@@ -41,7 +41,7 @@ test.describe("consultancy landing", () => {
 
   test("links through to every service page", async ({ page }) => {
     for (const id of SERVICES) {
-      await page.goto("/en/consultancy/");
+      await page.goto("en/consultancy/");
       await page.locator(`a[href$="/en/consultancy/${id}/"]`).first().click();
       await expect(page).toHaveURL(new RegExp(`/en/consultancy/${id}/$`));
       await expect(page.locator("h1")).toBeVisible();
@@ -49,7 +49,7 @@ test.describe("consultancy landing", () => {
   });
 
   test("explains how the process works", async ({ page }) => {
-    await page.goto("/en/consultancy/");
+    await page.goto("en/consultancy/");
     await expect(page.getByRole("heading", { name: "How it works" })).toBeVisible();
     await expect(page.locator("ol li")).toHaveCount(3);
   });
@@ -57,7 +57,7 @@ test.describe("consultancy landing", () => {
 
 test.describe("consultancy request form", () => {
   test("refuses to send without a name and phone", async ({ page }) => {
-    await page.goto("/en/consultancy/");
+    await page.goto("en/consultancy/");
     await page.getByRole("button", { name: "Send on WhatsApp" }).click();
     await expect(page.getByRole("alert")).toContainText(
       "Please add your name and phone number first.",
@@ -65,7 +65,7 @@ test.describe("consultancy request form", () => {
   });
 
   test("builds a WhatsApp message from the entered details", async ({ page }) => {
-    await page.goto("/en/consultancy/");
+    await page.goto("en/consultancy/");
 
     await page.getByLabel(/Your name/).fill("Karim Uddin");
     await page.getByLabel(/Shop name/).fill("Karim Electronics");
@@ -92,7 +92,7 @@ test.describe("consultancy request form", () => {
   });
 
   test("omits optional fields that were left blank", async ({ page }) => {
-    await page.goto("/en/consultancy/");
+    await page.goto("en/consultancy/");
     await page.getByLabel(/Your name/).fill("Ayesha");
     await page.getByLabel(/Phone number/).fill("01711111111");
 
@@ -104,7 +104,7 @@ test.describe("consultancy request form", () => {
   });
 
   test("writes the message in Bengali on the bn site", async ({ page }) => {
-    await page.goto("/bn/consultancy/");
+    await page.goto("bn/consultancy/");
     await page.getByLabel(/আপনার নাম/).fill("করিম উদ্দিন");
     await page.getByLabel(/ফোন নম্বর/).fill("01812345678");
 
@@ -115,7 +115,7 @@ test.describe("consultancy request form", () => {
   });
 
   test("preselects the service whose page it sits on", async ({ page }) => {
-    await page.goto("/en/consultancy/ai-ad/");
+    await page.goto("en/consultancy/ai-ad/");
     await page.getByLabel(/Your name/).fill("Rina");
     await page.getByLabel(/Phone number/).fill("01911111111");
 
@@ -125,7 +125,7 @@ test.describe("consultancy request form", () => {
   });
 
   test("offers direct call and email routes too", async ({ page }) => {
-    await page.goto("/en/consultancy/");
+    await page.goto("en/consultancy/");
     await expect(
       page.locator('form a[href="tel:+8801533033515"]'),
     ).toBeVisible();
@@ -137,7 +137,7 @@ test.describe("consultancy request form", () => {
 
 test.describe("dashboard", () => {
   test("surfaces every consultancy service to a shop owner", async ({ page }) => {
-    await page.goto("/en/dashboard/");
+    await page.goto("en/dashboard/");
     for (const id of SERVICES) {
       await expect(
         page.locator(`a[href$="/en/consultancy/${id}/"]`),

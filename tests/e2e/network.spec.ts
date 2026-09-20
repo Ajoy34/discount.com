@@ -1,17 +1,17 @@
 import { expect, test } from "@playwright/test";
 
 const PAGES = [
-  "/bn/",
-  "/en/",
-  "/bn/search/",
-  "/bn/offers/",
-  "/bn/shop/1/",
-  "/en/shop/5/",
-  "/bn/consultancy/",
-  "/en/consultancy/ai-ad/",
-  "/bn/dashboard/",
-  "/en/admin/",
-  "/bn/login/",
+  "bn/",
+  "en/",
+  "bn/search/",
+  "bn/offers/",
+  "bn/shop/1/",
+  "en/shop/5/",
+  "bn/consultancy/",
+  "en/consultancy/ai-ad/",
+  "bn/dashboard/",
+  "en/admin/",
+  "bn/login/",
 ];
 
 /**
@@ -25,7 +25,7 @@ for (const path of PAGES) {
 
     page.on("response", (response) => {
       const url = response.url();
-      if (!url.startsWith(baseURL!.replace(/\/discount\.com$/, ""))) return;
+      if (!url.startsWith(new URL(baseURL!).origin)) return;
       if (response.status() >= 400) {
         failures.push(`${response.status()} ${url}`);
       }
@@ -45,7 +45,7 @@ test("console stays free of errors on the home page", async ({ page }) => {
   });
   page.on("pageerror", (error) => errors.push(error.message));
 
-  await page.goto("/bn/");
+  await page.goto("bn/");
   await page.waitForLoadState("load").catch(() => {});
 
   expect(errors).toEqual([]);
@@ -57,12 +57,12 @@ test("client navigation between pages loads no missing payloads", async ({
 }) => {
   const failures: string[] = [];
   page.on("response", (r) => {
-    if (r.url().startsWith(baseURL!.replace(/\/discount\.com$/, "")) && r.status() >= 400) {
+    if (r.url().startsWith(new URL(baseURL!).origin) && r.status() >= 400) {
       failures.push(`${r.status()} ${r.url()}`);
     }
   });
 
-  await page.goto("/en/");
+  await page.goto("en/");
   await page.locator('a[href$="/en/offers/"]').first().click();
   await expect(page).toHaveURL(/\/en\/offers\/$/);
   await page.locator('a[href$="/en/consultancy/"]').first().click();
