@@ -240,9 +240,12 @@ test.describe("consultancy wizard", () => {
 test.describe("rewards", () => {
   test("starts a visitor at zero with nothing unlocked", async ({ page }) => {
     await page.goto("en/rewards/");
+    const panel = page.locator("main");
     await expect(page.locator("h1")).toContainText("Your rewards");
-    await expect(page.getByText("Newcomer").first()).toBeVisible();
-    await expect(page.getByText("0 of 6 earned")).toBeVisible();
+    // Scoped to the panel: the header chip also names the level, and hides it
+    // on a narrow viewport.
+    await expect(panel.getByText("Newcomer").first()).toBeVisible();
+    await expect(panel.getByText("0 of 6 earned")).toBeVisible();
   });
 
   test("pays more for reporting a discount than confirming one", async ({
@@ -250,17 +253,22 @@ test.describe("rewards", () => {
   }) => {
     await page.goto("en/rewards/");
     // The earning table states the values, so the incentive is inspectable.
-    const row = page
-      .locator("li")
-      .filter({ hasText: "Report a discount that was not honoured" })
-      .first();
-    await expect(row).toContainText("+20");
+    // Scoped to that card, since a badge description uses the same wording.
+    const earnCard = page.locator("div.surface").filter({
+      has: page.getByRole("heading", { name: "How to earn points" }),
+    });
 
-    const confirmRow = page
-      .locator("li")
-      .filter({ hasText: "Confirm a discount was honoured" })
-      .first();
-    await expect(confirmRow).toContainText("+10");
+    await expect(
+      earnCard
+        .locator("li")
+        .filter({ hasText: "Report a discount that was not honoured" }),
+    ).toContainText("+20");
+
+    await expect(
+      earnCard
+        .locator("li")
+        .filter({ hasText: "Confirm a discount was honoured" }),
+    ).toContainText("+10");
   });
 
   test("is honest about which perks are live", async ({ page }) => {
