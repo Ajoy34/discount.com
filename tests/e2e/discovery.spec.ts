@@ -159,9 +159,16 @@ test.describe("leaderboard", () => {
 
   test("offers a route to bid for the top spot", async ({ page }) => {
     await page.goto("en/leaderboard/");
-    const boost = page.locator('a[href*="wa.me"]').first();
-    await expect(boost).toBeVisible();
-    await expect(boost).toHaveAttribute("href", /8801533033515/);
+    const cta = page.getByRole("link", { name: /Take the top spot/ });
+    await expect(cta).toBeVisible();
+    await cta.click();
+
+    await expect(page).toHaveURL(/\/en\/leaderboard\/checkout\/\?amount=\d+$/);
+    await expect(
+      page.getByRole("heading", { name: "Secure checkout" }),
+    ).toBeVisible();
+    await expect(page.getByText("SSLCommerz", { exact: true })).toBeVisible();
+    await expect(page.getByText("Stripe", { exact: true })).toBeVisible();
   });
 
   test("appears on the home page with a link to the full board", async ({

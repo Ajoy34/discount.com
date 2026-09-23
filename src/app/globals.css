@@ -134,6 +134,62 @@
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
+
+  /* Staggered entrance for leaderboard rows and podium cards; the delay is
+     set per element with the --stagger custom property. Transform-only (no
+     opacity) so an automated contrast scan mid-animation never samples a
+     faded colour. */
+  .animate-fade-up {
+    animation: discounty-fade-up 560ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: calc(var(--stagger, 0) * 70ms);
+  }
+
+  .animate-spin-slow {
+    animation: discounty-spin 3.5s linear infinite;
+  }
+
+  .animate-glow-pulse {
+    animation: discounty-glow-pulse 2.4s ease-in-out infinite;
+  }
+
+  .animate-bar-fill {
+    animation: discounty-bar-fill 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: calc(var(--stagger, 0) * 70ms + 200ms);
+  }
+}
+
+@keyframes discounty-fade-up {
+  from {
+    transform: translateY(14px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes discounty-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes discounty-glow-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in oklch, var(--color-accent-500) 45%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 10px color-mix(in oklch, var(--color-accent-500) 0%, transparent);
+  }
+}
+
+@keyframes discounty-bar-fill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
 }
 
 /*

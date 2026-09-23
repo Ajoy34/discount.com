@@ -60,6 +60,8 @@ export interface Shop {
   hours: string;
   image: string;
   services: ShopService[];
+  /** Public site the shop wants their brand linked to on paid placements. */
+  website?: string;
 }
 
 const img = (id: string) =>
@@ -117,6 +119,7 @@ export const shops: Shop[] = [
         noteBn: "পাইকারি বাল্ক কেনাকাটায় ছাড়",
       },
     ],
+    website: "https://rahimgeneralstore.com.bd",
   },
   {
     id: 2,
@@ -152,6 +155,7 @@ export const shops: Shop[] = [
         noteBn: "বিনামূল্যে রক্তচাপ পরীক্ষা",
       },
     ],
+    website: "https://lazzpharma.com.bd",
   },
   {
     id: 3,
@@ -212,6 +216,7 @@ export const shops: Shop[] = [
         noteBn: "সকালে বিনামূল্যে ডেলিভারি",
       },
     ],
+    website: "https://greenorganicbd.com",
   },
   {
     id: 5,
@@ -269,6 +274,7 @@ export const shops: Shop[] = [
     hours: "9:00 — 21:00",
     image: img("photo-1456735190827-d1262f71b8a3"),
     services: [],
+    website: "https://studentstationery.com.bd",
   },
 ];
 

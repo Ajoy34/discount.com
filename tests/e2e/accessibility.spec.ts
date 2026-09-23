@@ -8,6 +8,7 @@ const PAGES = [
   { name: "offers", path: "en/offers/" },
   { name: "offer detail", path: "en/offers/1/" },
   { name: "leaderboard", path: "en/leaderboard/" },
+  { name: "leaderboard checkout", path: "en/leaderboard/checkout/" },
   { name: "rewards", path: "en/rewards/" },
   { name: "shop detail", path: "en/shop/1/" },
   { name: "consultancy", path: "en/consultancy/" },
